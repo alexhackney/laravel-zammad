@@ -1,6 +1,8 @@
 <?php
 
-namespace CodebarAg\Zammad\Requests\ObjectAttribute;
+declare(strict_types=1);
+
+namespace AlexHackney\Zammad\Requests\ObjectAttribute;
 
 use Saloon\Enums\Method;
 use Saloon\Http\Request;

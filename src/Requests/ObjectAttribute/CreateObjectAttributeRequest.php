@@ -1,8 +1,10 @@
 <?php
 
-namespace CodebarAg\Zammad\Requests\ObjectAttribute;
+declare(strict_types=1);
 
-use CodebarAg\Zammad\DTO\ObjectAttribute;
+namespace AlexHackney\Zammad\Requests\ObjectAttribute;
+
+use AlexHackney\Zammad\Data\ObjectAttribute;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -15,6 +17,7 @@ class CreateObjectAttributeRequest extends Request implements HasBody
 
     protected Method $method = Method::POST;
 
+    /** @param array<string, mixed> $payload */
     public function __construct(
         protected array $payload
     ) {}
@@ -24,6 +27,7 @@ class CreateObjectAttributeRequest extends Request implements HasBody
         return '/object_manager_attributes';
     }
 
+    /** @return array<string, mixed> */
     protected function defaultBody(): array
     {
         return $this->payload;

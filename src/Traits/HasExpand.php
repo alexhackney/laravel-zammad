@@ -1,6 +1,8 @@
 <?php
 
-namespace CodebarAg\Zammad\Traits;
+declare(strict_types=1);
+
+namespace AlexHackney\Zammad\Traits;
 
 trait HasExpand
 {

@@ -1,6 +1,8 @@
 <?php
 
-namespace CodebarAg\Zammad\Requests\Attachment;
+declare(strict_types=1);
+
+namespace AlexHackney\Zammad\Requests\Attachment;
 
 use Saloon\Enums\Method;
 use Saloon\Http\Request;

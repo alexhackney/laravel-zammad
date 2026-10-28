@@ -1,9 +1,11 @@
 <?php
 
-namespace CodebarAg\Zammad\Resources;
+declare(strict_types=1);
 
-use CodebarAg\Zammad\Classes\RequestClass;
-use CodebarAg\Zammad\Requests\Attachment\GetAttachmentRequest;
+namespace AlexHackney\Zammad\Resources;
+
+use AlexHackney\Zammad\Classes\RequestClass;
+use AlexHackney\Zammad\Requests\Attachment\GetAttachmentRequest;
 use Saloon\Exceptions\Request\RequestException;
 
 class AttachmentResource extends RequestClass

@@ -1,61 +1,66 @@
 {
-    "name": "codebar-ag/laravel-zammad",
-    "description": "Zammad integration with Laravel",
+    "name": "alexhackney/laravel-zammad",
+    "description": "Zammad helpdesk API client for Laravel, built on Saloon",
     "keywords": [
         "zammad",
         "laravel",
-        "codebar-ag",
-        "laravel-zammad"
+        "helpdesk",
+        "saloon",
+        "api"
     ],
-    "homepage": "https://github.com/codebar-ag/laravel-zammad",
+    "homepage": "https://github.com/alexhackney/laravel-zammad",
     "license": "MIT",
     "authors": [
         {
-            "name": "Sebastian Bürgin-Fix",
-            "email": "helpdesk@codebar.ch",
-            "homepage": "https://www.codebar.ch",
-            "role": "Software-Engineer"
+            "name": "Alex Hackney",
+            "email": "alex@alexhackney.com"
         }
     ],
+    "support": {
+        "issues": "https://github.com/alexhackney/laravel-zammad/issues",
+        "source": "https://github.com/alexhackney/laravel-zammad"
+    },
     "require": {
-        "php": "8.2.*|8.3.*|8.4.*",
         "guzzlehttp/guzzle": "^7.8",
-        "illuminate/contracts": "^12.0",
-        "spatie/laravel-package-tools": "^1.19",
-        "saloonphp/cache-plugin": "^3.1",
-        "saloonphp/laravel-plugin": "^3.0|^4.0",
-        "saloonphp/saloon": "^3.0|^4.0"
+        "illuminate/contracts": "^12.0|^13.0",
+        "illuminate/support": "^12.0|^13.0",
+        "php": "^8.3",
+        "saloonphp/laravel-plugin": "^4.0",
+        "saloonphp/saloon": "^4.0",
+        "spatie/laravel-package-tools": "^1.93",
+        "symfony/html-sanitizer": "^7.0|^8.0"
     },
     "require-dev": {
-        "laravel/pint": "^1.21",
-        "larastan/larastan": "^v3.1",
-        "orchestra/testbench": "^10.0",
-        "pestphp/pest": "^3.7",
+        "larastan/larastan": "^3.10",
+        "laravel/pint": "^1.0",
+        "orchestra/testbench": "^10.0|^11.0",
+        "pestphp/pest": "^4.0",
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpstan-deprecation-rules": "^2.0",
-        "phpstan/phpstan-phpunit": "^2.0",
-        "spatie/laravel-ray": "^1.39"
+        "phpstan/phpstan-phpunit": "^2.0"
     },
     "autoload": {
         "psr-4": {
-            "CodebarAg\\Zammad\\": "src"
+            "AlexHackney\\Zammad\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "CodebarAg\\Zammad\\Tests\\": "tests"
+            "AlexHackney\\Zammad\\Tests\\": "tests"
         }
     },
+    "bin": [
+        "bin/migrate-from-codebar"
+    ],
     "scripts": {
-        "analyse": "vendor/bin/phpstan analyse",
+        "analyse": "vendor/bin/phpstan analyse --memory-limit=1G",
         "test": "vendor/bin/pest",
-        "test-coverage": "vendor/bin/pest --coverage",
-        "format": "vendor/bin/php-cs-fixer fix --allow-risky=yes"
+        "format": "vendor/bin/pint",
+        "lint": "vendor/bin/pint --test"
     },
     "config": {
         "sort-packages": true,
         "allow-plugins": {
-            "composer/package-versions-deprecated": false,
             "pestphp/pest-plugin": true,
             "phpstan/extension-installer": true
         }
@@ -63,13 +68,13 @@
     "extra": {
         "laravel": {
             "providers": [
-                "CodebarAg\\Zammad\\ZammadServiceProvider"
+                "AlexHackney\\Zammad\\ZammadServiceProvider"
             ],
             "aliases": {
-                "Zammad": "CodebarAg\\Zammad\\Facades\\Zammad"
+                "Zammad": "AlexHackney\\Zammad\\Facades\\Zammad"
             }
         }
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true
 }

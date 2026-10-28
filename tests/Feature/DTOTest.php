@@ -1,12 +1,15 @@
 <?php
 
-namespace CodebarAg\Zammad\Tests\Feature;
+declare(strict_types=1);
 
+namespace AlexHackney\Zammad\Tests\Feature;
+
+use AlexHackney\Zammad\Data\Attachment;
+use AlexHackney\Zammad\Data\Comment;
+use AlexHackney\Zammad\Data\Ticket;
+use AlexHackney\Zammad\Data\User;
 use Carbon\Carbon;
-use CodebarAg\Zammad\DTO\Attachment;
-use CodebarAg\Zammad\DTO\Comment;
-use CodebarAg\Zammad\DTO\Ticket;
-use CodebarAg\Zammad\DTO\User;
+use InvalidArgumentException;
 
 it('does create a fake user', function () {
     $user = User::fake();
@@ -28,6 +31,7 @@ it('does_add_dynamic_attributes_to_ticket', function () {
         'is_active' => 'boolean',
         'deleted_at' => 'datetime',
     ]);
+    // derived from DTO fields, not a captured Zammad response
     $data = [
         'id' => 1,
         'number' => '1',
@@ -71,6 +75,7 @@ it('does create a fake attachment', function () {
 })->group('dto');
 
 it('can get a url of an attachment', function () {
+    // derived from DTO fields, not a captured Zammad response
     $attachment = Attachment::fromJson(
         [
             'id' => 42,
@@ -85,7 +90,13 @@ it('can get a url of an attachment', function () {
         commentId: 111,
     );
 
-    expect($attachment->url())->toBe('https://dev-immospace.zammad.com/api/v1/ticket_attachment/32/111/42');
+    expect($attachment->url())->toBe('https://zammad.test/api/v1/ticket_attachment/32/111/42');
+
+    config(['zammad.url' => 'https://zammad.test/']);
+    expect($attachment->url())->toBe('https://zammad.test/api/v1/ticket_attachment/32/111/42');
+
+    config(['zammad.url' => 'relative-url']);
+    expect(fn () => $attachment->url())->toThrow(InvalidArgumentException::class);
 })->group('attachments');
 
 it('can get the status of a ticket', function () {

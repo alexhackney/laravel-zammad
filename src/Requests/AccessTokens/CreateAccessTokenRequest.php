@@ -1,6 +1,8 @@
 <?php
 
-namespace CodebarAg\Zammad\Requests\AccessTokens;
+declare(strict_types=1);
+
+namespace AlexHackney\Zammad\Requests\AccessTokens;
 
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
@@ -13,6 +15,7 @@ class CreateAccessTokenRequest extends Request implements HasBody
 
     protected Method $method = Method::POST;
 
+    /** @param array<string, mixed> $payload */
     public function __construct(
         protected array $payload
     ) {}
@@ -22,6 +25,7 @@ class CreateAccessTokenRequest extends Request implements HasBody
         return '/user_access_token';
     }
 
+    /** @return array<string, mixed> */
     protected function defaultBody(): array
     {
         return $this->payload;

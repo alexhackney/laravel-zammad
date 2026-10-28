@@ -1,0 +1,96 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  pint:
+    name: Pint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+
+      - name: Install dependencies
+        run: composer install --no-interaction --prefer-dist
+
+      - name: Run Pint
+        run: vendor/bin/pint --test
+
+  phpstan:
+    name: PHPStan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+
+      - name: Install dependencies
+        run: composer install --no-interaction --prefer-dist
+
+      - name: Run PHPStan
+        run: composer analyse -- --no-progress
+
+  tests:
+    name: PHP ${{ matrix.php }} / Laravel ${{ matrix.laravel }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      # Laravel 13 requires PHP 8.3+.
+      matrix:
+        include:
+          - php: '8.3'
+            laravel: '12.*'
+            testbench: '10.*'
+          - php: '8.4'
+            laravel: '12.*'
+            testbench: '10.*'
+          - php: '8.5'
+            laravel: '12.*'
+            testbench: '10.*'
+          - php: '8.3'
+            laravel: '13.*'
+            testbench: '11.*'
+          - php: '8.4'
+            laravel: '13.*'
+            testbench: '11.*'
+          - php: '8.5'
+            laravel: '13.*'
+            testbench: '11.*'
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+
+      # Pin laravel/framework rather than a single illuminate/* split: the
+      # framework replaces every illuminate package, so this constrains the
+      # whole stack instead of leaving contracts/http/routing free to drift.
+      - name: Install dependencies
+        run: |
+          composer require --dev --no-update --no-interaction \
+            "laravel/framework:${{ matrix.laravel }}" \
+            "orchestra/testbench:${{ matrix.testbench }}"
+          composer update --no-interaction --prefer-dist
+
+      - name: Run tests
+        run: vendor/bin/pest

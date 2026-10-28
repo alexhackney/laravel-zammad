@@ -1,7 +1,10 @@
 <?php
 
-namespace CodebarAg\Zammad;
+declare(strict_types=1);
 
+namespace AlexHackney\Zammad;
+
+use AlexHackney\Zammad\Commands\PingCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -11,6 +14,7 @@ class ZammadServiceProvider extends PackageServiceProvider
     {
         $package
             ->name('laravel-zammad')
-            ->hasConfigFile();
+            ->hasConfigFile()
+            ->hasCommand(PingCommand::class);
     }
 }

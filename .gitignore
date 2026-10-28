@@ -10,3 +10,5 @@ vendor
 node_modules
 .phpactor.json
 build
+
+.docs/

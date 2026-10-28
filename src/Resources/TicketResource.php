@@ -1,18 +1,20 @@
 <?php
 
-namespace CodebarAg\Zammad\Resources;
+declare(strict_types=1);
 
-use CodebarAg\Zammad\Classes\RequestClass;
-use CodebarAg\Zammad\DTO\Ticket;
-use CodebarAg\Zammad\Facades\Zammad;
-use CodebarAg\Zammad\Requests\Tickets\AllTicketsRequest;
-use CodebarAg\Zammad\Requests\Tickets\CreateTicketRequest;
-use CodebarAg\Zammad\Requests\Tickets\DestroyTicketRequest;
-use CodebarAg\Zammad\Requests\Tickets\GetTicketRequest;
-use CodebarAg\Zammad\Requests\Tickets\SearchTicketRequest;
-use CodebarAg\Zammad\Traits\HasExpand;
-use CodebarAg\Zammad\Traits\HasLimit;
-use CodebarAg\Zammad\Traits\HasPagination;
+namespace AlexHackney\Zammad\Resources;
+
+use AlexHackney\Zammad\Classes\RequestClass;
+use AlexHackney\Zammad\Data\Ticket;
+use AlexHackney\Zammad\Facades\Zammad;
+use AlexHackney\Zammad\Requests\Tickets\AllTicketsRequest;
+use AlexHackney\Zammad\Requests\Tickets\CreateTicketRequest;
+use AlexHackney\Zammad\Requests\Tickets\DestroyTicketRequest;
+use AlexHackney\Zammad\Requests\Tickets\GetTicketRequest;
+use AlexHackney\Zammad\Requests\Tickets\SearchTicketRequest;
+use AlexHackney\Zammad\Traits\HasExpand;
+use AlexHackney\Zammad\Traits\HasLimit;
+use AlexHackney\Zammad\Traits\HasPagination;
 use Illuminate\Support\Collection;
 use Saloon\Exceptions\Request\RequestException;
 
@@ -27,13 +29,12 @@ class TicketResource extends RequestClass
      * @throws RequestException
      * @throws \JsonException
      */
+    /** @return Collection<int, Ticket> */
     public function list(): Collection
     {
         $response = self::request(new AllTicketsRequest(perPage: $this->perPage, page: $this->page));
 
-        $tickets = $response->json();
-
-        return collect($tickets)->map(fn (array $ticket) => Ticket::fromJson($ticket));
+        return $response->collect()->map(fn (array $ticket) => Ticket::fromJson($ticket));
     }
 
     /**
@@ -41,13 +42,12 @@ class TicketResource extends RequestClass
      * @throws RequestException
      * @throws \JsonException
      */
+    /** @return Collection<int, Ticket> */
     public function search(string $term): Collection
     {
         $response = self::request(new SearchTicketRequest(term: $term, limit: $this->limit, perPage: $this->perPage, page: $this->page));
 
-        $tickets = $response->json('assets.Ticket');
-
-        return collect($tickets)
+        return $response->collect('assets.Ticket')
             ->map(fn (array $ticket) => Ticket::fromJson($ticket))
             ->values();
     }
@@ -69,13 +69,13 @@ class TicketResource extends RequestClass
      * @throws RequestException
      * @throws \JsonException
      */
-    public function showWithComments(int $id): ?Ticket
+    public function showWithComments(int $id, bool $includeInternal = false): ?Ticket
     {
         $response = self::request(new GetTicketRequest(id: $id, expand: $this->expand));
 
         $ticket = $response->dtoOrFail();
 
-        $ticket->comments = Zammad::comment()->showByTicket($id);
+        $ticket->comments = Zammad::comment()->showByTicket($id, $includeInternal);
 
         return $ticket;
     }
@@ -85,6 +85,7 @@ class TicketResource extends RequestClass
      * @throws RequestException
      * @throws \JsonException
      */
+    /** @param array<string, mixed> $data */
     public function create(array $data): Ticket
     {
         $response = self::request(new CreateTicketRequest(payload: $data, expand: $this->expand));

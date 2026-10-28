@@ -11,19 +11,6 @@ updates:
       minor-and-patch:
         update-types: [ "minor", "patch" ]
 
-  - package-ecosystem: "npm"
-    directory: "/"
-    schedule:
-      interval: "daily"
-    allow:
-      - dependency-type: "direct"
-    ignore:
-      - dependency-name: "*"
-        update-types: [ "version-update:semver-major" ]
-    groups:
-      minor-and-patch:
-        update-types: [ "minor", "patch" ]
-
   - package-ecosystem: "composer"
     directory: "/"
     schedule:

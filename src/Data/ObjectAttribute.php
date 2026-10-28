@@ -1,27 +1,38 @@
 <?php
 
-namespace CodebarAg\Zammad\DTO;
+declare(strict_types=1);
+
+namespace AlexHackney\Zammad\Data;
 
 use Illuminate\Support\Str;
 
 class ObjectAttribute
 {
+    use NormalizesJsonScalars;
+
+    /**
+     * @param  array<string, mixed>  $data
+     */
     public static function fromJson(array $data): self
     {
         return new self(
-            id: $data['id'],
-            name: $data['name'],
+            id: self::jsonInt($data['id']),
+            name: self::jsonString($data['name']),
             object_lookup_id: array_key_exists('object_lookup_id', $data)
-                ? $data['object_lookup_id']
+                ? ($data['object_lookup_id'] === null ? null : self::jsonInt($data['object_lookup_id']))
                 : null,
-            display: $data['display'],
-            data_type: $data['data_type'],
-            position: $data['position'],
+            display: self::jsonString($data['display']),
+            data_type: self::jsonString($data['data_type']),
+            position: self::jsonInt($data['position']),
             data_option: $data['data_option'],
             data_option_new: $data['data_option_new'],
         );
     }
 
+    /**
+     * @param  array<string, mixed>  $data_option
+     * @param  array<string, mixed>|null  $data_option_new
+     */
     public function __construct(
         public int $id,
         public string $name,
@@ -33,9 +44,13 @@ class ObjectAttribute
         public ?array $data_option_new,
     ) {}
 
+    /**
+     * @param  array<string, mixed>|null  $data_option
+     * @param  array<string, mixed>|null  $data_option_new
+     */
     public static function fake(
         ?int $id = null,
-        ?int $name = null,
+        ?string $name = null,
         ?int $object_lookup_id = null,
         ?string $display = null,
         ?string $data_type = null,
@@ -55,6 +70,13 @@ class ObjectAttribute
         );
     }
 
+    /**
+     * @param  array<string, mixed>|null  $data_options
+     * @return array{
+     *     name: string, object: string|null, display: string|null, active: bool|null,
+     *     position: int|null, data_type: string|null, data_option: array<string, mixed>|null
+     * }
+     */
     public static function fakeCreateToArray(
         ?string $name = 'sample_object',
         ?string $object = 'Ticket',
@@ -70,7 +92,7 @@ class ObjectAttribute
             ],
             'default' => 'key-one',
         ]
-    ) {
+    ): array {
         return [
             'name' => $name.'_'.Str::slug(Str::orderedUuid()->toString(), '_'),
             'object' => $object,

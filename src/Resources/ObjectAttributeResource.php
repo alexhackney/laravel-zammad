@@ -1,15 +1,17 @@
 <?php
 
-namespace CodebarAg\Zammad\Resources;
+declare(strict_types=1);
 
-use CodebarAg\Zammad\Classes\RequestClass;
-use CodebarAg\Zammad\DTO\ObjectAttribute;
-use CodebarAg\Zammad\Requests\ObjectAttribute\AllObjectAttributesRequest;
-use CodebarAg\Zammad\Requests\ObjectAttribute\CreateObjectAttributeRequest;
-use CodebarAg\Zammad\Requests\ObjectAttribute\DestroyObjectAttributeRequest;
-use CodebarAg\Zammad\Requests\ObjectAttribute\ExecuteMigrationsObjectAttributeRequest;
-use CodebarAg\Zammad\Requests\ObjectAttribute\GetObjectAttributeRequest;
-use CodebarAg\Zammad\Requests\ObjectAttribute\UpdateObjectAttributeRequest;
+namespace AlexHackney\Zammad\Resources;
+
+use AlexHackney\Zammad\Classes\RequestClass;
+use AlexHackney\Zammad\Data\ObjectAttribute;
+use AlexHackney\Zammad\Requests\ObjectAttribute\AllObjectAttributesRequest;
+use AlexHackney\Zammad\Requests\ObjectAttribute\CreateObjectAttributeRequest;
+use AlexHackney\Zammad\Requests\ObjectAttribute\DestroyObjectAttributeRequest;
+use AlexHackney\Zammad\Requests\ObjectAttribute\ExecuteMigrationsObjectAttributeRequest;
+use AlexHackney\Zammad\Requests\ObjectAttribute\GetObjectAttributeRequest;
+use AlexHackney\Zammad\Requests\ObjectAttribute\UpdateObjectAttributeRequest;
 use Illuminate\Support\Collection;
 use Saloon\Exceptions\Request\RequestException;
 
@@ -20,13 +22,12 @@ class ObjectAttributeResource extends RequestClass
      * @throws RequestException
      * @throws \JsonException
      */
+    /** @return Collection<int, ObjectAttribute> */
     public function list(): Collection
     {
         $response = self::request(new AllObjectAttributesRequest);
 
-        $objects = $response->json();
-
-        return collect($objects)->map(fn (array $object) => ObjectAttribute::fromJson($object));
+        return $response->collect()->map(fn (array $object) => ObjectAttribute::fromJson($object));
     }
 
     public function show(int $id): ?ObjectAttribute
@@ -36,6 +37,7 @@ class ObjectAttributeResource extends RequestClass
         return $response->dtoOrFail();
     }
 
+    /** @param array<string, mixed> $data */
     public function create(array $data): ObjectAttribute
     {
         $response = self::request(new CreateObjectAttributeRequest($data));
@@ -43,6 +45,7 @@ class ObjectAttributeResource extends RequestClass
         return $response->dtoOrFail();
     }
 
+    /** @param array<string, mixed> $data */
     public function update(int $id, array $data): ObjectAttribute
     {
         $response = self::request(new UpdateObjectAttributeRequest($id, $data));

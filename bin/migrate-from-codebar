@@ -1,0 +1,615 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+// Standalone CLI: deliberately does not load the application's autoloader.
+set_error_handler(static function (int $severity, string $message, string $file, int $line): never {
+    throw new ErrorException($message, 0, $severity, $file, $line);
+});
+
+function migrationUsage(): string
+{
+    return <<<'HELP'
+Usage: bin/migrate-from-codebar [--dry-run] [--skip-composer] [APP_DIR]
+
+Migrate a Laravel application from codebar-ag/laravel-zammad to alexhackney/laravel-zammad.
+
+Options:
+  --dry-run        Report files that would change without modifying anything
+  --skip-composer  Skip composer commands (still edit composer.json metadata)
+  -h, --help       Show this help message
+HELP;
+}
+
+function migrationNamespaces(string $text): string
+{
+    // The optional leading separator permits fully qualified names, but not a
+    // CodebarAg segment nested below some unrelated namespace.
+    foreach (['\\\\', '\\'] as $separator) {
+        $root = preg_quote('CodebarAg'.$separator.'Zammad', '~');
+        $newRoot = preg_quote('AlexHackney'.$separator.'Zammad', '~');
+        $quotedSeparator = preg_quote($separator, '~');
+        $boundary = '(?![A-Za-z0-9_])';
+        $prefix = '(?<![A-Za-z0-9_\\\\])(?:'.preg_quote($separator, '~').')?';
+        $text = preg_replace_callback(
+            '~'.$prefix.$root.'(?:'.preg_quote($separator, '~').'DTO'.$boundary.')?'.$boundary.'~',
+            static function (array $match) use ($separator): string {
+                $name = str_replace('CodebarAg'.$separator.'Zammad', 'AlexHackney'.$separator.'Zammad', $match[0]);
+
+                return str_replace($separator.'DTO', $separator.'Data', $name);
+            },
+            $text,
+        );
+        $text = preg_replace_callback(
+            '~'.$prefix.$newRoot.$quotedSeparator.'DTO'.$boundary.'~',
+            static fn (array $match): string => substr($match[0], 0, -3).'Data',
+            $text,
+        );
+        $text = preg_replace_callback(
+            '~(\buse\s++'.$prefix.$newRoot.$quotedSeparator.'\s*+\{)([^{}]*+)\}~',
+            static fn (array $match): string => $match[1].preg_replace_callback(
+                '~(^|,)(\s*+)DTO'.$quotedSeparator.'~',
+                static fn (array $member): string => $member[1].$member[2].'Data'.$separator,
+                $match[2],
+            ).'}',
+            $text,
+        );
+    }
+
+    return $text;
+}
+
+function migrationConfigKey(string $text): string
+{
+    $tokens = token_get_all($text);
+    foreach ($tokens as $index => $token) {
+        if (! is_array($token) || $token[0] !== T_CONSTANT_ENCAPSED_STRING || ! in_array($token[1], ["'objet_reference_error'", '"objet_reference_error"'], true)) {
+            continue;
+        }
+        $next = $index + 1;
+        while (isset($tokens[$next]) && is_array($tokens[$next]) && in_array($tokens[$next][0], [T_WHITESPACE, T_COMMENT, T_DOC_COMMENT], true)) {
+            $next++;
+        }
+        if (isset($tokens[$next]) && is_array($tokens[$next]) && $tokens[$next][0] === T_DOUBLE_ARROW) {
+            $tokens[$index][1] = str_replace('objet_reference_error', 'object_reference_error', $token[1]);
+        }
+    }
+
+    return implode('', array_map(static fn (array|string $token): string => is_array($token) ? $token[1] : $token, $tokens));
+}
+
+function migrationHasSerializedNamespace(string $text): bool
+{
+    if (! str_contains($text, 'CodebarAg')) {
+        return false;
+    }
+    $offset = 0;
+    $length = strlen($text);
+    while (preg_match('~s:\d++:\\\\*+"~', $text, $match, PREG_OFFSET_CAPTURE, $offset) === 1) {
+        $start = $match[0][1] + strlen($match[0][0]);
+        $end = $start;
+        while (($quote = strpos($text, '"', $end)) !== false) {
+            $slashes = 0;
+            for ($index = $quote - 1; $index >= $start && $text[$index] === '\\'; $index--) {
+                $slashes++;
+            }
+            $end = $quote;
+            if ($slashes % 2 === 0) {
+                break;
+            }
+            $end++;
+        }
+        if ($quote === false) {
+            $end = $length;
+        }
+        if (str_contains(substr($text, $start, $end - $start), 'CodebarAg')) {
+            return true;
+        }
+        $offset = $end + 1;
+        if ($offset >= $length) {
+            break;
+        }
+    }
+
+    return false;
+}
+
+function migrationStringValues(mixed $value): mixed
+{
+    if (is_string($value)) {
+        return migrationNamespaces($value);
+    }
+    if (is_array($value) || $value instanceof stdClass) {
+        foreach ($value as $key => $item) {
+            if (is_array($value)) {
+                $value[$key] = migrationStringValues($item);
+            } else {
+                $value->{$key} = migrationStringValues($item);
+            }
+        }
+    }
+
+    return $value;
+}
+
+function migrationManifest(stdClass $manifest): stdClass
+{
+    if (isset($manifest->extra->laravel) && $manifest->extra->laravel instanceof stdClass) {
+        foreach (['providers', 'aliases'] as $key) {
+            if (isset($manifest->extra->laravel->{$key})) {
+                $manifest->extra->laravel->{$key} = migrationStringValues($manifest->extra->laravel->{$key});
+            }
+        }
+    }
+    foreach (['autoload', 'autoload-dev'] as $section) {
+        if (isset($manifest->{$section}->{'psr-4'}) && $manifest->{$section}->{'psr-4'} instanceof stdClass) {
+            $rewritten = new stdClass;
+            foreach ($manifest->{$section}->{'psr-4'} as $key => $value) {
+                $newKey = migrationNamespaces($key);
+                if (property_exists($rewritten, $newKey)) {
+                    throw new RuntimeException('Conflicting PSR-4 namespace keys in composer.json: '.$newKey);
+                }
+                $rewritten->{$newKey} = migrationStringValues($value);
+            }
+            $manifest->{$section}->{'psr-4'} = $rewritten;
+        }
+    }
+    if (isset($manifest->repositories) && (is_array($manifest->repositories) || $manifest->repositories instanceof stdClass)) {
+        $repositories = $manifest->repositories;
+        foreach ($repositories as $key => $repository) {
+            if (! $repository instanceof stdClass || ! in_array($repository->type ?? null, ['vcs', 'git'], true) || ! is_string($repository->url ?? null)) {
+                continue;
+            }
+            // Accept HTTPS, SSH, and scp-style Git URLs on any host. Only the
+            // final repository path component identifies this package.
+            if (preg_match('~(?:/|:)laravel-zammad(?:\.git)?/?$~i', $repository->url) !== 1) {
+                continue;
+            }
+            if (is_array($repositories)) {
+                unset($repositories[$key]);
+            } else {
+                unset($repositories->{$key});
+            }
+        }
+        if (count((array) $repositories) === 0) {
+            unset($manifest->repositories);
+        } else {
+            $manifest->repositories = is_array($repositories) ? array_values($repositories) : $repositories;
+        }
+    }
+
+    return $manifest;
+}
+
+function migrationRead(string $path): string
+{
+    $text = file_get_contents($path);
+    if ($text === false) {
+        throw new RuntimeException('Cannot read '.$path);
+    }
+
+    return $text;
+}
+
+function migrationReadManifest(string $text): stdClass
+{
+    try {
+        try {
+            $manifest = json_decode($text, false, 512, JSON_THROW_ON_ERROR);
+        } catch (JsonException $exception) {
+            throw new RuntimeException('Invalid JSON: '.$exception->getMessage(), 0, $exception);
+        }
+        if (! $manifest instanceof stdClass) {
+            throw new RuntimeException('The JSON must contain an object.');
+        }
+        // Skip JSON strings, including escaped quotes, before checking numeric
+        // tokens. Refuse long integer literals conservatively on every platform.
+        $length = strlen($text);
+        for ($offset = 0; $offset < $length; $offset++) {
+            if ($text[$offset] === '"') {
+                while (++$offset < $length && $text[$offset] !== '"') {
+                    if ($text[$offset] === '\\') {
+                        $offset++;
+                    }
+                }
+            } elseif ($text[$offset] === '-' || ctype_digit($text[$offset])) {
+                $size = strspn($text, '0123456789.eE+-', $offset);
+                $number = substr($text, $offset, $size);
+                if (preg_match('/^-?\d{16,}$/D', $number) === 1) {
+                    throw new RuntimeException('An integer literal has more than 15 digits and may lose precision during a JSON round trip.');
+                }
+                $offset += $size - 1;
+            }
+        }
+
+        return $manifest;
+    } catch (Throwable $exception) {
+        echo "Update composer.json and source references manually:\n";
+        echo "  - Remove the old laravel-zammad VCS/git entry from repositories; keep unrelated entries.\n";
+        echo '  - Rename CodebarAg\Zammad\DTO to AlexHackney\Zammad\Data (including grouped imports).'."\n";
+        echo '  - Rename remaining CodebarAg\Zammad references to AlexHackney\Zammad.'."\n";
+        echo '  - Rename already migrated AlexHackney\Zammad\DTO references to AlexHackney\Zammad\Data.'."\n";
+        echo "  - Replace the package requirement with alexhackney/laravel-zammad; use --dev for require-dev.\n";
+        throw new RuntimeException('Cannot safely rewrite composer.json: '.$exception->getMessage(), 0, $exception);
+    }
+}
+
+function migrationAssertLock(string $root): void
+{
+    $path = $root.'/composer.lock';
+    clearstatcache(true, $path);
+    if (is_link($path)) {
+        throw new RuntimeException('Refusing symlinked composer.lock.');
+    }
+    if (file_exists($path)) {
+        $stat = lstat($path);
+        if ($stat === false || $stat['nlink'] > 1) {
+            throw new RuntimeException('Refusing hard-linked composer.lock.');
+        }
+    }
+}
+
+function migrationAssertAppPath(string $app): void
+{
+    $path = str_starts_with($app, '/') ? '/' : getcwd();
+    if ($path === false) {
+        throw new RuntimeException('Cannot determine the current directory.');
+    }
+    // Validate every component, including links hidden by a trailing slash,
+    // dot, or parent segment. This does not change the supplied target path.
+    foreach (explode('/', $app) as $component) {
+        if ($component === '' || $component === '.') {
+            continue;
+        }
+        $path = $component === '..' ? dirname($path) : ($path === '/' ? '' : $path).'/'.$component;
+        if (is_link($path)) {
+            throw new RuntimeException('Refusing symlink in APP_DIR: '.$path);
+        }
+    }
+}
+
+/** @return list<string> */
+function migrationSources(string $root): array
+{
+    $files = [];
+    $excluded = ['vendor', 'node_modules', 'storage', '.git'];
+    foreach (['app', 'bootstrap', 'config', 'database', 'routes', 'resources', 'tests', 'src', 'lib'] as $directory) {
+        $path = $root.'/'.$directory;
+        if (is_link($path) || ! is_dir($path)) {
+            continue;
+        }
+        $iterator = new RecursiveIteratorIterator(new RecursiveCallbackFilterIterator(
+            new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS),
+            static fn (SplFileInfo $item): bool => ! $item->isLink() && ! in_array($item->getFilename(), $excluded, true),
+        ));
+        foreach ($iterator as $item) {
+            if (! $item->isFile() || ! str_ends_with($item->getFilename(), '.php')) {
+                continue;
+            }
+            $stat = lstat($item->getPathname());
+            if ($stat === false) {
+                throw new RuntimeException('Cannot stat '.$item->getPathname());
+            }
+            if ($stat['nlink'] > 1) {
+                echo 'Skipping hard-linked source: '.substr($item->getPathname(), strlen($root) + 1)."\n";
+
+                continue;
+            }
+            $files[] = $item->getPathname();
+        }
+    }
+    sort($files, SORT_STRING);
+
+    return $files;
+}
+
+function migrationWrite(string $root, string $relative, string $expected, string $replacement): void
+{
+    migrationAssertAppPath($root);
+    $path = $root.'/'.$relative;
+    // Recheck parents and the opened file before replacing. Never replace a
+    // linked path, even if it changed after the initial scan.
+    $parent = $root;
+    foreach (explode('/', dirname($relative)) as $component) {
+        if ($component === '.') {
+            continue;
+        }
+        $parent .= '/'.$component;
+        if (is_link($parent) || ! is_dir($parent)) {
+            throw new RuntimeException('Refusing linked or missing directory: '.$parent);
+        }
+    }
+    clearstatcache(true, $path);
+    $stat = lstat($path);
+    if ($stat === false || ($stat['mode'] & 0170000) !== 0100000 || $stat['nlink'] !== 1) {
+        throw new RuntimeException('Refusing linked or non-regular file: '.$path);
+    }
+    if (! is_writable($path)) {
+        throw new RuntimeException('Cannot write '.$path);
+    }
+    $source = fopen($path, 'rb');
+    if ($source === false) {
+        throw new RuntimeException('Cannot read '.$path);
+    }
+    $temporary = null;
+    $handle = null;
+    try {
+        $opened = fstat($source);
+        if ($opened === false || $opened['ino'] !== $stat['ino'] || $opened['dev'] !== $stat['dev'] || $opened['nlink'] !== 1 || stream_get_contents($source) !== $expected) {
+            throw new RuntimeException('File changed while migrating: '.$path);
+        }
+        $candidate = dirname($path).'/.zammad-migrate-'.bin2hex(random_bytes(16));
+        $handle = fopen($candidate, 'x+b');
+        if ($handle === false) {
+            throw new RuntimeException('Cannot create temporary file for '.$path);
+        }
+        $temporary = $candidate;
+        $offset = 0;
+        while ($offset < strlen($replacement)) {
+            $written = fwrite($handle, substr($replacement, $offset));
+            if ($written === false || $written === 0) {
+                throw new RuntimeException('Cannot write '.$path);
+            }
+            $offset += $written;
+        }
+        if (! fflush($handle) || ! chmod($temporary, $stat['mode'] & 07777)) {
+            throw new RuntimeException('Cannot finish writing '.$path);
+        }
+        fclose($handle);
+        $handle = null;
+        clearstatcache(true, $path);
+        $current = lstat($path);
+        rewind($source);
+        if ($current === false || $current['ino'] !== $stat['ino'] || $current['dev'] !== $stat['dev'] || $current['nlink'] !== 1 || stream_get_contents($source) !== $expected) {
+            throw new RuntimeException('File changed while migrating: '.$path);
+        }
+        if (! rename($temporary, $path)) {
+            throw new RuntimeException('Cannot replace '.$path);
+        }
+        $temporary = null;
+    } finally {
+        try {
+            fclose($source);
+            if (is_resource($handle)) {
+                fclose($handle);
+            }
+        } finally {
+            if ($temporary !== null && file_exists($temporary)) {
+                unlink($temporary);
+            }
+        }
+    }
+}
+
+/** @return list<string> */
+function migrationReview(string $relative, string $text, bool $env = false): array
+{
+    if (! $env && strlen($text) > 2 * 1024 * 1024) {
+        return ['  - [Review scan skipped: larger than 2 MB] '.$relative];
+    }
+    $report = [];
+    $patterns = ['ZAMMAD_OBJECT_REFERENCE_ERROR env usage' => '~\bZAMMAD_OBJECT_REFERENCE_ERROR\b~'];
+    if (! $env) {
+        if (stripos($text, 'zammad') === false) {
+            return [];
+        }
+        $patterns += [
+            'searchOrCreateByEmail behaviour changed' => '~\bsearchOrCreateByEmail\s*+\(~',
+            'showByTicket / showWithComments exclude internal notes by default' => '~\b(?:showByTicket|showWithComments)\s*+\(~',
+            'body_filtered rendered unescaped ({!! !!})' => '~\{!!(?:(?!\{!!|!!\}|\bbody_filtered\b).)*+\bbody_filtered\b(?:(?!\{!!|!!\}).)*+!!\}~s',
+            'ZammadResponseLog listener (now dispatched on failed responses too)' => '~\bZammadResponseLog\b~',
+        ];
+        $accessor = '(?:\bZammad\s*+::|(?:\$[A-Za-z_][A-Za-z0-9_\s>\-]*?)?->)\s*+(?<resource>user|userAccessToken)\s*+\(\s*+\)';
+        // The class pattern below accepts qualified resource names and new Foo().
+        // A namespace token is tried only at its beginning, never at every byte
+        // within a long identifier. No pattern nests unbounded repetitions.
+        $class = '(?<![A-Za-z0-9_\\\\])(?<resourceClass>[A-Za-z_\\\\][A-Za-z0-9_\\\\]*+)(?<=\bUserResource|\bUserAccessToken|\bUserAccessTokenResource)';
+        $receivers = [$accessor, '\(\s*+new\s++'.$class.'(?:\s*+\([^;]*?\))?\s*+\)'];
+        $variables = [];
+        foreach (['~\$(?<var>[A-Za-z_]\w*+)\s*+=\s*+'.$accessor.'~', '~\$(?<var>[A-Za-z_]\w*+)\s*+=\s*+new\s++'.$class.'~', '~'.$class.'\s++\$(?<var>[A-Za-z_]\w*+)~'] as $pattern) {
+            preg_match_all($pattern, $text, $matches, PREG_SET_ORDER);
+            foreach ($matches as $match) {
+                $variables[$match['var']] = $match['resource'] ?? basename(str_replace('\\', '/', $match['resourceClass']));
+            }
+        }
+        foreach ($variables as $variable => $resource) {
+            $methods = in_array($resource, ['user', 'UserResource'], true) ? 'show|update|delete' : 'update|delete';
+            $patterns['Resource IDs must be positive integers: '.$variable] = '~\$'.preg_quote($variable, '~').'\s*+(?<call>->\s*+(?:'.$methods.')\s*+\([^;)]*+\))~s';
+        }
+        foreach ($receivers as $index => $receiver) {
+            $patterns['UserResource::show(0) removed; use me(); update / token delete require positive integer IDs ('.$index.')'] = '~'.$receiver.'\s*+(?<call>->\s*+(?:show|update|delete)\s*+\([^;)]*+\))~s';
+        }
+    }
+    foreach ($patterns as $label => $pattern) {
+        preg_match_all($pattern, $text, $matches, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
+        foreach ($matches as $match) {
+            [$snippet, $offset] = $match['call'] ?? $match[0];
+            $line = substr_count(substr($text, 0, $offset), "\n") + 1;
+            $snippet = preg_replace('/\s++/', ' ', $snippet);
+            $report[] = '  - ['.$label.'] '.$relative.':'.$line.': '.$snippet;
+        }
+    }
+
+    return $report;
+}
+
+function migrationComposerBinary(): ?string
+{
+    foreach (explode(PATH_SEPARATOR, getenv('PATH') ?: '') as $directory) {
+        $path = ($directory === '' ? '.' : $directory).'/composer';
+        if (is_file($path) && is_executable($path)) {
+            return realpath($path) ?: null;
+        }
+    }
+
+    return null;
+}
+
+/** @param list<string> $command */
+function migrationComposer(array $command, string $root): int
+{
+    migrationAssertLock($root);
+    $environment = getenv();
+    unset($environment['COMPOSER'], $environment['COMPOSER_ROOT_VERSION']);
+    $process = proc_open([...$command, '--working-dir='.$root], [STDIN, STDOUT, STDERR], $pipes, $root, $environment);
+    if (! is_resource($process)) {
+        throw new RuntimeException('Cannot start Composer.');
+    }
+
+    return proc_close($process);
+}
+
+try {
+    $dryRun = false;
+    $skipComposer = false;
+    $app = null;
+    foreach (array_slice($argv, 1) as $argument) {
+        if ($argument === '--dry-run') {
+            $dryRun = true;
+        } elseif ($argument === '--skip-composer') {
+            $skipComposer = true;
+        } elseif (in_array($argument, ['-h', '--help'], true)) {
+            echo migrationUsage()."\n";
+            exit(0);
+        } elseif (str_starts_with($argument, '-')) {
+            throw new RuntimeException('Unknown option: '.$argument."\n".migrationUsage());
+        } elseif ($app !== null) {
+            throw new RuntimeException('Too many arguments. '.migrationUsage());
+        } else {
+            $app = $argument;
+        }
+    }
+    $app ??= '.';
+    // Check the exact supplied path BEFORE resolving it; never trim whitespace.
+    if (! is_dir($app) || ! is_file($app.'/composer.json')) {
+        throw new RuntimeException('No composer.json found in '.var_export($app, true).'.');
+    }
+    migrationAssertAppPath($app);
+    if (is_link($app) || is_link($app.'/composer.json')) {
+        throw new RuntimeException('Refusing symlinked APP_DIR or composer.json.');
+    }
+    $root = realpath($app);
+    if ($root === false) {
+        throw new RuntimeException('Cannot resolve APP_DIR.');
+    }
+    $composerPath = $root.'/composer.json';
+    $stat = lstat($composerPath);
+    if ($stat === false || $stat['nlink'] > 1) {
+        throw new RuntimeException('Refusing hard-linked composer.json.');
+    }
+    migrationAssertLock($root);
+    $original = migrationRead($composerPath);
+    $manifest = migrationReadManifest($original);
+    $requiresRuntimeOld = isset($manifest->require->{'codebar-ag/laravel-zammad'});
+    $requiresDevOld = isset($manifest->{'require-dev'}->{'codebar-ag/laravel-zammad'});
+    $requiresOld = $requiresRuntimeOld || $requiresDevOld;
+    $alreadyMigrated = ! $requiresOld && (isset($manifest->require->{'alexhackney/laravel-zammad'}) || isset($manifest->{'require-dev'}->{'alexhackney/laravel-zammad'}));
+    $before = json_encode($manifest, JSON_THROW_ON_ERROR);
+    $manifest = migrationManifest($manifest);
+    $changes = [];
+    if (json_encode($manifest, JSON_THROW_ON_ERROR) !== $before) {
+        $changes['composer.json'] = [$original, json_encode($manifest, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR)."\n"];
+    }
+    $review = [];
+    foreach (migrationSources($root) as $path) {
+        $text = migrationRead($path);
+        if (str_contains($text, "\0")) {
+            continue;
+        }
+        $relative = substr($path, strlen($root) + 1);
+        if (migrationHasSerializedNamespace($text)) {
+            $review[] = '  - [Skipped serialized-string literal] '.$relative;
+
+            continue;
+        }
+        $rewritten = migrationNamespaces($text);
+        if ($relative === 'config/zammad.php') {
+            $rewritten = migrationConfigKey($rewritten);
+        }
+        if ($text !== $rewritten) {
+            $changes[$relative] = [$text, $rewritten];
+        }
+        array_push($review, ...migrationReview($relative, $text));
+    }
+    foreach (new DirectoryIterator($root) as $file) {
+        if ($file->isLink() || ! $file->isFile() || ! preg_match('/^\.env(?:\..+)?$/D', $file->getFilename())) {
+            continue;
+        }
+        $stat = lstat($file->getPathname());
+        if ($stat === false) {
+            throw new RuntimeException('Cannot stat '.$file->getPathname());
+        }
+        if ($stat['nlink'] > 1) {
+            continue;
+        }
+        $text = migrationRead($file->getPathname());
+        if (! str_contains($text, "\0")) {
+            array_push($review, ...migrationReview($file->getFilename(), $text, true));
+        }
+    }
+    if (! $dryRun) {
+        foreach ($changes as $relative => [$expected, $replacement]) {
+            migrationWrite($root, $relative, $expected, $replacement);
+        }
+    }
+    $sections = $requiresRuntimeOld ? [false] : [];
+    if ($requiresDevOld) {
+        $sections[] = true;
+    }
+    $commands = [];
+    foreach ($sections === [] ? [false] : $sections as $dev) {
+        $flags = $dev ? ['--dev'] : [];
+        $commands[] = [
+            ['remove', 'codebar-ag/laravel-zammad', '--no-interaction', '--no-scripts', ...$flags],
+            ['require', 'alexhackney/laravel-zammad', '--no-interaction', ...$flags],
+        ];
+    }
+    if ($alreadyMigrated) {
+        echo "composer.json already requires alexhackney/laravel-zammad without codebar-ag/laravel-zammad; skipping Composer.\n";
+    } else {
+        $binary = migrationComposerBinary();
+        if ($binary === null) {
+            echo "Composer binary not found on PATH.\n";
+        }
+        if ($skipComposer || $dryRun || $binary === null) {
+            echo "Run these commands in APP_DIR after reviewing the rewrites:\n";
+            foreach ($commands as [$remove, $require]) {
+                echo '  composer '.implode(' ', $remove)."\n";
+                echo '  composer '.implode(' ', $require)."\n";
+            }
+            echo "Afterwards, run composer install or composer dump-autoload to run scripts skipped during removal.\n";
+            if ($binary === null && ! $skipComposer) {
+                throw new RuntimeException('Composer binary not found; run the commands above by hand.');
+            }
+        } else {
+            echo "Composer remove skips scripts; run composer install or composer dump-autoload afterwards to run application scripts.\n";
+            foreach ($commands as [$remove, $require]) {
+                $status = migrationComposer([$binary, ...$remove], $root);
+                if ($status !== 0 && $requiresOld) {
+                    throw new RuntimeException('composer remove failed with exit code '.$status.'.');
+                }
+                if ($status !== 0) {
+                    echo "Ignoring composer remove failure because codebar-ag/laravel-zammad is not required.\n";
+                }
+                $status = migrationComposer([$binary, ...$require], $root);
+                if ($status !== 0) {
+                    throw new RuntimeException('composer require failed with exit code '.$status.'.');
+                }
+            }
+        }
+    }
+    if ($dryRun) {
+        echo "Dry run: changed nothing.\n";
+    }
+    $heading = $dryRun ? 'Files that would change:' : 'Files changed:';
+    echo $heading.($changes === [] ? " none\n" : "\n");
+    foreach (array_keys($changes) as $relative) {
+        echo '  - '.$relative."\n";
+    }
+    echo "\nReview manually:\n";
+    echo $review === [] ? "  none\n" : implode("\n", array_unique($review))."\n";
+} catch (Throwable $exception) {
+    fwrite(STDERR, 'Error: '.$exception->getMessage()."\n");
+    exit(1);
+}

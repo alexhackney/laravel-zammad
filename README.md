@@ -117,7 +117,7 @@ empty or contain whitespace, `"`, `\`, `(`, `)`, `*`, `?` or `:`.
 $tickets = Zammad::ticket()->list();                      // Collection<int, Ticket>
 $ticket = Zammad::ticket()->show(12);                     // Ticket
 $ticket = Zammad::ticket()->showWithComments(12);         // Ticket with ->comments filled, no internal notes
-$tickets = Zammad::ticket()->limit(10)->search('state:open');
+$tickets = Zammad::ticket()->limit(10)->search('state:open');   // current and older Zammad response formats
 
 $ticket = Zammad::ticket()->create([
     'title' => 'Printer is on fire',

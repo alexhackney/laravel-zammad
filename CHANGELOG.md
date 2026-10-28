@@ -51,6 +51,7 @@ Migrating from `codebar-ag/laravel-zammad`? See [UPGRADING.md](UPGRADING.md).
   only by its string `error` field; a non-JSON body is matched as a whole; unparseable JSON throws.
 - `searchOrCreateByEmail()` no longer drops custom attributes.
 - Create and update requests honour `expand`.
+- `Zammad::ticket()->search()` works with current Zammad, which answers with a plain list of tickets (it still accepts the older `assets` format). It used to return an empty collection.
 - Ticket comments passed to the constructor are no longer discarded.
 
 ### Added

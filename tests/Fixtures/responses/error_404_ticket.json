@@ -1,0 +1,10 @@
+{
+    "method": "GET",
+    "path": "/tickets/{id}",
+    "status": 404,
+    "content_type": "application/json; charset=utf-8",
+    "body": {
+        "error": "error-1",
+        "error_human": "error-1"
+    }
+}

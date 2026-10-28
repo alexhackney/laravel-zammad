@@ -47,9 +47,44 @@ class TicketResource extends RequestClass
     {
         $response = self::request(new SearchTicketRequest(term: $term, limit: $this->limit, perPage: $this->perPage, page: $this->page));
 
-        return $response->collect('assets.Ticket')
-            ->map(fn (array $ticket) => Ticket::fromJson($ticket))
-            ->values();
+        /** @var mixed $data */
+        $data = $response->json();
+
+        if (! is_array($data)) {
+            return new Collection;
+        }
+
+        // Current Zammad answers with a plain list of ticket objects.
+        if (array_is_list($data)) {
+            $rows = $data;
+        } else {
+            // Older Zammad answers with the ticket ids in `tickets` and the objects in `assets.Ticket`.
+            $assets = is_array($data['assets'] ?? null) ? $data['assets'] : [];
+            $byId = is_array($assets['Ticket'] ?? null) ? $assets['Ticket'] : [];
+            $rows = [];
+
+            if (is_array($data['tickets'] ?? null)) {
+                foreach ($data['tickets'] as $id) {
+                    if (is_scalar($id) && isset($byId[(string) $id])) {
+                        $rows[] = $byId[(string) $id];
+                    }
+                }
+            }
+
+            if ($rows === []) {
+                $rows = array_values($byId);
+            }
+        }
+
+        $tickets = new Collection;
+
+        foreach ($rows as $row) {
+            if (is_array($row)) {
+                $tickets->push(Ticket::fromJson($row));
+            }
+        }
+
+        return $tickets;
     }
 
     /**

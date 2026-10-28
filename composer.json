@@ -1,12 +1,20 @@
 {
     "name": "alexhackney/laravel-zammad",
-    "description": "Zammad helpdesk API client for Laravel, built on Saloon",
+    "description": "Laravel client for the Zammad helpdesk API: tickets, users, comments, attachments and access tokens as typed DTOs, built on Saloon",
     "keywords": [
         "zammad",
-        "laravel",
+        "zammad-api",
+        "zammad-client",
         "helpdesk",
+        "help-desk",
+        "ticketing",
+        "support",
+        "customer-support",
+        "laravel",
+        "laravel-package",
         "saloon",
-        "api"
+        "sdk",
+        "api-client"
     ],
     "homepage": "https://github.com/alexhackney/laravel-zammad",
     "license": "MIT",
@@ -18,7 +26,8 @@
     ],
     "support": {
         "issues": "https://github.com/alexhackney/laravel-zammad/issues",
-        "source": "https://github.com/alexhackney/laravel-zammad"
+        "source": "https://github.com/alexhackney/laravel-zammad",
+        "docs": "https://github.com/alexhackney/laravel-zammad#readme"
     },
     "require": {
         "guzzlehttp/guzzle": "^7.8",

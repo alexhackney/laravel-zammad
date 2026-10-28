@@ -1,0 +1,27 @@
+name: pr-title
+
+# Releases are computed from conventional commit subjects, and squash merges use the pull request title as
+# the subject. Keep the title valid: type(scope)!: description
+#   feat!: / fix!: / "BREAKING CHANGE:" in the body -> major   feat: -> minor   fix: perf: revert: -> patch
+#   docs: style: test: build: ci: chore: refactor: -> no release
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  title:
+    name: conventional title
+    runs-on: ubuntu-latest
+    steps:
+      - name: check the pull request title
+        env:
+          TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          pattern='^(feat|fix|perf|refactor|docs|style|test|build|ci|chore|revert)(\([a-z0-9._/-]+\))?!?: .+'
+          if ! printf '%s' "$TITLE" | grep -Eq "$pattern"; then
+            printf '::error::The title must look like "feat: add x", "fix(scope): y" or "feat!: z" (types: feat fix perf refactor docs style test build ci chore revert). Got: %s\n' "$TITLE"
+            exit 1
+          fi

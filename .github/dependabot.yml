@@ -2,6 +2,8 @@ version: 2
 updates:
   - package-ecosystem: "github-actions"
     directory: "/"
+    commit-message:
+      prefix: "ci(deps)"
     schedule:
       interval: "daily"
     ignore:
@@ -13,6 +15,9 @@ updates:
 
   - package-ecosystem: "composer"
     directory: "/"
+    commit-message:
+      prefix: "build(deps)"
+      prefix-development: "build(deps-dev)"
     schedule:
       interval: "daily"
     allow:

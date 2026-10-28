@@ -55,10 +55,29 @@ CI runs `pint --test`, PHPStan and the test suite on every pull request and on e
 
 ## Releases
 
-Releasing is a merge. When the first heading of `CHANGELOG.md` on `main` is a version (`## [1.0.0] - 2026-11-01`)
-with no matching tag, the release workflow runs the gates, tags `v1.0.0` and publishes the GitHub release with
-that section as the notes. A top heading of `## [Unreleased]` releases nothing. To keep working after a release, add a new `## [Unreleased]` section above the released one in the next change. Packagist picks the tag up
-through its GitHub webhook.
+Releases are automatic. Every push to `main` runs `.github/workflows/release.yml`: the full test matrix (the same jobs
+as a pull request) runs first, and if the push contains a releasable conventional commit the next version is tagged and
+published on the GitHub Releases page with generated notes (Packagist picks the tag up through its GitHub webhook).
+Nothing is committed back to `main`. Only the newest commit on `main` is ever released; a re-run of an older commit
+does nothing.
+
+Merge pull requests with **squash and merge** so the commit subject is the pull request title, and give every
+pull request a conventional title (the `pr-title` check enforces it): `type(scope)!: description`.
+
+| Title | Release |
+|---|---|
+| `feat!: ...` or a `BREAKING CHANGE:` footer in the commit body | major |
+| `feat: ...` | minor |
+| `fix: ...`, `perf: ...`, `revert: ...` | patch |
+| `docs:`, `style:`, `test:`, `build:`, `ci:`, `chore:`, `refactor:` | no release |
+
+The first release is `1.0.0`. Maintenance commits are only counted in the notes, and `[` `]` `<` `>` in titles are
+escaped there.
+
+Do not create `vX.Y.Z` tags or releases by hand. The planner refuses to release if the next tag name already exists on
+another commit, and only tags whose `composer.json` names this package count as a baseline, so tags inherited from the
+upstream project are ignored (delete them from the remote anyway). If a run fails after the tag was created but
+before the release was, finish it with `gh release create vX.Y.Z --verify-tag --generate-notes`.
 
 ## Running tests
 

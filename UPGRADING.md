@@ -73,7 +73,7 @@ If the old package is in `require-dev`, add `--dev` to both commands. If it is i
 
 ## 3. Breaking Behaviour Changes and Fixes
 
-Every behaviour change from `CHANGELOG.md` (`[Unreleased]`) that can affect an application is listed below with its exact before/after behaviour and the required action.
+Every behaviour change from the 1.0.0 migration summary in `CHANGELOG.md` that can affect an application is listed below with its exact before/after behaviour and the required action.
 
 ### 3.1 HTTP Retry Policy (`ZammadConnector::handleRetry()`)
 

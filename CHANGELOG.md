@@ -1,15 +1,12 @@
 # Changelog
 
-All notable changes to `alexhackney/laravel-zammad` are documented in this file. The format follows
-[Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project follows
-[Semantic Versioning](https://semver.org/).
+Releases are automatic. Every merge to `main` that contains a releasable conventional commit is released:
+the version is computed from the commit subjects, and the notes are generated and published on the
+[GitHub Releases](https://github.com/alexhackney/laravel-zammad/releases) page. This file holds the
+1.0.0 migration summary and the history of the upstream package. See CONTRIBUTING.md for the rules.
 
-Releasing is a merge: when the first heading below is a version (`## [1.0.0] - YYYY-MM-DD`) and that
-version is not yet tagged, the release workflow tags it. `## [Unreleased]` releases nothing.
+## 1.0.0 - migration summary
 
-## [Unreleased]
-
-To release 1.0.0, rename this heading to `## [1.0.0] - YYYY-MM-DD` (use the release date) and merge to `main`; the release workflow then tags it.
 First release of the maintained fork of `codebar-ag/laravel-zammad` (upstream is no longer developed).
 Migrating from `codebar-ag/laravel-zammad`? See [UPGRADING.md](UPGRADING.md).
 

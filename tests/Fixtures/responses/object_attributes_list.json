@@ -1,0 +1,3213 @@
+{
+    "method": "GET",
+    "path": "/object_manager_attributes",
+    "status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "body": [
+        {
+            "id": 58,
+            "name": "name-1",
+            "display": "display-1",
+            "data_type": "integer",
+            "data_option": {
+                "default": null,
+                "min": 0,
+                "max": 999999999,
+                "null": true,
+                "options": [],
+                "relation": ""
+            },
+            "data_option_new": [],
+            "editable": true,
+            "active": true,
+            "screens": {
+                "create": {
+                    "ticket.customer": {
+                        "shown": true,
+                        "required": false
+                    },
+                    "ticket.agent": {
+                        "shown": true,
+                        "required": false
+                    },
+                    "admin.user": {
+                        "shown": true,
+                        "required": false
+                    }
+                },
+                "view": {
+                    "ticket.customer": {
+                        "shown": true
+                    },
+                    "ticket.agent": {
+                        "shown": true
+                    },
+                    "admin.user": {
+                        "shown": true
+                    }
+                },
+                "edit": {
+                    "ticket.agent": {
+                        "shown": true,
+                        "required": false
+                    },
+                    "admin.user": {
+                        "shown": true,
+                        "required": false
+                    }
+                },
+                "signup": {
+                    "ticket.customer": {
+                        "shown": false,
+                        "required": false
+                    }
+                },
+                "invite_customer": {
+                    "ticket.agent": {
+                        "shown": false,
+                        "required": false
+                    },
+                    "admin.user": {
+                        "shown": false,
+                        "required": false
+                    }
+                },
+                "invite_agent": {
+                    "admin.user": {
+                        "shown": false,
+                        "required": false
+                    }
+                }
+            },
+            "to_create": true,
+            "to_migrate": true,
+            "to_delete": false,
+            "to_config": false,
+            "position": 0,
+            "created_by_id": 3,
+            "updated_by_id": 3,
+            "created_at": "2024-11-13T14:52:03.426Z",
+            "updated_at": "2024-11-13T14:52:03.426Z",
+            "internal": false,
+            "object": "User",
+            "deletable": true
+        },
+        {
+            "id": 1,
+            "name": "name-2",
+            "display": "display-2",
+            "data_type": "input",
+            "data_option": {
+                "type": "text",
+                "readonly": 1,
+                "null": true,
+                "maxlength": 60,
+                "width": "width-1",
+                "display_config": "display_config-1"
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "create_top": [],
+                "edit": []
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 5,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.483Z",
+            "updated_at": "2026-05-01T16:26:57.599Z",
+            "internal": true,
+            "object": "Ticket",
+            "deletable": false
+        },
+        {
+            "id": 2,
+            "name": "name-3",
+            "display": "display-3",
+            "data_type": "input",
+            "data_option": {
+                "type": "text",
+                "maxlength": 200,
+                "null": false,
+                "translate": false
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "create_top": {
+                    "-all-": {
+                        "null": false
+                    }
+                },
+                "edit": []
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 8,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.486Z",
+            "updated_at": "2024-11-13T01:30:05.486Z",
+            "internal": true,
+            "object": "Ticket",
+            "deletable": false,
+            "not_deletable_reason": "not_deletable_reason-1"
+        },
+        {
+            "id": 3,
+            "name": "name-4",
+            "display": "create_article_sender-1",
+            "data_type": "user_autocompletion",
+            "data_option": {
+                "relation": "relation-1",
+                "autocapitalize": false,
+                "multiple": false,
+                "guess": true,
+                "null": false,
+                "limit": 200,
+                "placeholder": "placeholder-1",
+                "minLengt": 2,
+                "translate": false,
+                "permission": [
+                    "permission-1",
+                    "permission-2"
+                ]
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "create_top": {
+                    "ticket.agent": {
+                        "null": false
+                    }
+                },
+                "edit": []
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 10,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.489Z",
+            "updated_at": "2026-05-01T16:26:57.597Z",
+            "internal": true,
+            "object": "Ticket",
+            "deletable": false,
+            "not_deletable_reason": "not_deletable_reason-2"
+        },
+        {
+            "id": 4,
+            "name": "name-5",
+            "display": "display-4",
+            "data_type": "data_type-1",
+            "data_option": {
+                "relation": "display-4",
+                "autocapitalize": false,
+                "multiple": false,
+                "null": true,
+                "translate": false,
+                "permission": [
+                    "permission-1",
+                    "permission-2"
+                ]
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "create_top": {
+                    "-all-": {
+                        "null": false
+                    }
+                },
+                "edit": []
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 12,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.492Z",
+            "updated_at": "2024-11-13T01:30:05.492Z",
+            "internal": true,
+            "object": "Ticket",
+            "deletable": false,
+            "not_deletable_reason": "not_deletable_reason-3"
+        },
+        {
+            "id": 5,
+            "name": "name-6",
+            "display": "display-5",
+            "data_type": "select",
+            "data_option": {
+                "default": "",
+                "options": {
+                    "Incident": "Incident-1",
+                    "Problem": "Problem-1",
+                    "Request for Change": "Request for Change-1"
+                },
+                "nulloption": true,
+                "multiple": false,
+                "null": true,
+                "translate": true,
+                "maxlength": 255
+            },
+            "data_option_new": [],
+            "editable": true,
+            "active": false,
+            "screens": {
+                "create_middle": {
+                    "-all-": {
+                        "null": false,
+                        "item_class": "item_class-1"
+                    }
+                },
+                "edit": {
+                    "ticket.agent": {
+                        "null": false
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 20,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.497Z",
+            "updated_at": "2024-11-13T01:30:05.497Z",
+            "internal": false,
+            "object": "Ticket",
+            "deletable": true
+        },
+        {
+            "id": 6,
+            "name": "name-7",
+            "display": "display-6",
+            "data_type": "tree_select",
+            "data_option": {
+                "default": "",
+                "relation": "display-6",
+                "relation_condition": {
+                    "access": "2-1"
+                },
+                "nulloption": true,
+                "multiple": false,
+                "null": false,
+                "translate": false,
+                "only_shown_if_selectable": true,
+                "permission": [
+                    "permission-1",
+                    "permission-2"
+                ],
+                "maxlength": 255
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "create_middle": {
+                    "-all-": {
+                        "null": false,
+                        "item_class": "item_class-1"
+                    }
+                },
+                "edit": {
+                    "ticket.agent": {
+                        "null": false
+                    }
+                },
+                "overview_bulk": {
+                    "ticket.agent": {
+                        "nulloption": true,
+                        "null": true,
+                        "default": "",
+                        "direction": "direction-1"
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 25,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.500Z",
+            "updated_at": "2024-11-13T01:30:05.500Z",
+            "internal": true,
+            "object": "Ticket",
+            "deletable": false
+        },
+        {
+            "id": 7,
+            "name": "name-8",
+            "display": "display-7",
+            "data_type": "select",
+            "data_option": {
+                "default": "",
+                "relation": "relation-1",
+                "relation_condition": {
+                    "roles": "roles-1"
+                },
+                "nulloption": true,
+                "multiple": false,
+                "null": true,
+                "translate": false,
+                "permission": [
+                    "permission-1"
+                ],
+                "maxlength": 255
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "create_middle": {
+                    "-all-": {
+                        "null": true,
+                        "item_class": "item_class-1"
+                    }
+                },
+                "edit": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "overview_bulk": {
+                    "ticket.agent": {
+                        "null": true
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 30,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.503Z",
+            "updated_at": "2024-11-13T01:30:05.503Z",
+            "internal": true,
+            "object": "Ticket",
+            "deletable": false,
+            "not_deletable_reason": "not_deletable_reason-4"
+        },
+        {
+            "id": 8,
+            "name": "name-9",
+            "display": "display-8",
+            "data_type": "select",
+            "data_option": {
+                "relation": "relation-2",
+                "nulloption": true,
+                "multiple": false,
+                "null": false,
+                "default": 2,
+                "translate": true,
+                "filter": [
+                    2,
+                    1,
+                    3,
+                    4,
+                    6
+                ],
+                "maxlength": 255
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "create_middle": {
+                    "ticket.agent": {
+                        "null": false,
+                        "item_class": "item_class-1",
+                        "filter": [
+                            2,
+                            1,
+                            3,
+                            4,
+                            6
+                        ]
+                    },
+                    "ticket.customer": {
+                        "item_class": "item_class-1",
+                        "nulloption": false,
+                        "null": true,
+                        "filter": [
+                            1,
+                            4
+                        ],
+                        "default": 1
+                    }
+                },
+                "edit": {
+                    "ticket.agent": {
+                        "nulloption": false,
+                        "null": false,
+                        "filter": [
+                            2,
+                            3,
+                            4,
+                            6
+                        ]
+                    },
+                    "ticket.customer": {
+                        "nulloption": false,
+                        "null": true,
+                        "filter": [
+                            2,
+                            4
+                        ],
+                        "default": 2
+                    }
+                },
+                "overview_bulk": {
+                    "ticket.agent": {
+                        "nulloption": true,
+                        "null": true,
+                        "default": "",
+                        "filter": [
+                            2,
+                            3,
+                            4,
+                            6
+                        ]
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 40,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.508Z",
+            "updated_at": "2024-11-13T01:30:05.508Z",
+            "internal": true,
+            "object": "Ticket",
+            "deletable": false,
+            "not_deletable_reason": "not_deletable_reason-5"
+        },
+        {
+            "id": 9,
+            "name": "name-10",
+            "display": "display-9",
+            "data_type": "datetime",
+            "data_option": {
+                "future": true,
+                "past": false,
+                "diff": null,
+                "null": true,
+                "translate": true,
+                "permission": [
+                    "permission-1"
+                ]
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "create_middle": {
+                    "-all-": {
+                        "null": false,
+                        "item_class": "item_class-1"
+                    }
+                },
+                "edit": {
+                    "-all-": {
+                        "null": false
+                    }
+                },
+                "overview_bulk": {
+                    "ticket.agent": {
+                        "nulloption": true,
+                        "null": true,
+                        "default": "",
+                        "orientation": "orientation-1",
+                        "disableScroll": true
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 41,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.511Z",
+            "updated_at": "2024-11-13T01:30:05.511Z",
+            "internal": true,
+            "object": "Ticket",
+            "deletable": false,
+            "not_deletable_reason": "not_deletable_reason-6"
+        },
+        {
+            "id": 10,
+            "name": "name-11",
+            "display": "display-10",
+            "data_type": "select",
+            "data_option": {
+                "relation": "relation-3",
+                "nulloption": false,
+                "multiple": false,
+                "null": false,
+                "default": 2,
+                "translate": true,
+                "maxlength": 255
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "create_middle": {
+                    "ticket.agent": {
+                        "null": false,
+                        "item_class": "item_class-1"
+                    }
+                },
+                "edit": {
+                    "ticket.agent": {
+                        "null": false
+                    }
+                },
+                "overview_bulk": {
+                    "ticket.agent": {
+                        "nulloption": true,
+                        "null": true,
+                        "default": ""
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 80,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.514Z",
+            "updated_at": "2024-11-13T01:30:05.514Z",
+            "internal": true,
+            "object": "Ticket",
+            "deletable": false
+        },
+        {
+            "id": 59,
+            "name": "name-12",
+            "display": "display-11",
+            "data_type": "select",
+            "data_option": {
+                "nulloption": true,
+                "multiple": false,
+                "null": true,
+                "default": "",
+                "translate": false,
+                "options": {
+                    "ab": "ab-1",
+                    "aa": "aa-1",
+                    "af": "af-1",
+                    "sq": "sq-1",
+                    "am": "am-1",
+                    "ar": "ar-1",
+                    "hy": "hy-1",
+                    "as": "as-1",
+                    "ay": "ay-1",
+                    "az": "az-1",
+                    "ba": "ba-1",
+                    "eu": "eu-1",
+                    "be": "be-1",
+                    "bn": "bn-1",
+                    "bh": "bh-1",
+                    "bi": "bi-1",
+                    "bs": "bs-1",
+                    "br": "br-1",
+                    "bg": "bg-1",
+                    "my": "my-1",
+                    "ca": "ca-1",
+                    "chr": "chr-1",
+                    "zh-TW": "zh-TW-1",
+                    "zh": "zh-1",
+                    "co": "co-1",
+                    "cpe": "cpe-1",
+                    "cpf": "cpf-1",
+                    "crp": "crp-1",
+                    "cpp": "cpp-1",
+                    "hr": "hr-1",
+                    "cs": "cs-1",
+                    "da": "da-1",
+                    "dv": "dv-1",
+                    "nl": "nl-1",
+                    "dz": "dz-1",
+                    "en": "en-1",
+                    "eo": "eo-1",
+                    "et": "et-1",
+                    "fo": "fo-1",
+                    "fj": "fj-1",
+                    "fi": "fi-1",
+                    "fr": "fr-1",
+                    "fy": "fy-1",
+                    "gl": "gl-1",
+                    "lg": "lg-1",
+                    "ka": "ka-1",
+                    "de": "de-1",
+                    "el": "el-1",
+                    "kl": "kl-1",
+                    "gn": "gn-1",
+                    "gu": "gu-1",
+                    "ht": "ht-1",
+                    "ha": "ha-1",
+                    "he": "he-1",
+                    "hi": "hi-1",
+                    "hu": "hu-1",
+                    "is": "is-1",
+                    "id": "id-1",
+                    "ia": "ia-1",
+                    "ie": "ie-1",
+                    "iu": "iu-1",
+                    "ik": "ik-1",
+                    "ga": "ga-1",
+                    "it": "it-1",
+                    "ja": "ja-1",
+                    "jw": "jw-1",
+                    "kn": "kn-1",
+                    "ks": "ks-1",
+                    "kk": "kk-1",
+                    "kha": "kha-1",
+                    "km": "km-1",
+                    "rw": "rw-1",
+                    "ko": "ko-1",
+                    "ku": "ku-1",
+                    "ky": "ky-1",
+                    "lo": "lo-1",
+                    "la": "la-1",
+                    "lv": "lv-1",
+                    "sit-NP": "sit-NP-1",
+                    "ln": "ln-1",
+                    "lt": "lt-1",
+                    "lb": "lb-1",
+                    "mk": "mk-1",
+                    "mg": "mg-1",
+                    "ms": "ms-1",
+                    "ml": "ml-1",
+                    "mt": "mt-1",
+                    "gv": "gv-1",
+                    "mi": "mi-1",
+                    "mr": "mr-1",
+                    "mo": "mo-1",
+                    "mn": "mn-1",
+                    "sr-ME": "sr-ME-1",
+                    "na": "na-1",
+                    "ne": "ne-1",
+                    "nn": "nn-1",
+                    "nb": "nb-1",
+                    "oc": "oc-1",
+                    "or": "or-1",
+                    "om": "om-1",
+                    "ps": "ps-1",
+                    "fa": "fa-1",
+                    "pl": "pl-1",
+                    "pt-BR": "pt-BR-1",
+                    "pt-PT": "pt-PT-1",
+                    "pt": "pt-1",
+                    "pa": "pa-1",
+                    "qu": "qu-1",
+                    "rm": "rm-1",
+                    "ro": "ro-1",
+                    "rn": "rn-1",
+                    "ru": "ru-1",
+                    "sm": "sm-1",
+                    "sg": "sg-1",
+                    "sa": "sa-1",
+                    "gd": "gd-1",
+                    "sco": "sco-1",
+                    "sr": "sr-1",
+                    "sh": "sh-1",
+                    "st": "st-1",
+                    "sn": "sn-1",
+                    "sd": "sd-1",
+                    "si": "si-1",
+                    "ss": "ss-1",
+                    "sk": "sk-1",
+                    "sl": "sl-1",
+                    "so": "so-1",
+                    "es": "es-1",
+                    "su": "su-1",
+                    "sw": "sw-1",
+                    "sv": "sv-1",
+                    "syr": "syr-1",
+                    "fil": "fil-1",
+                    "tg": "tg-1",
+                    "ta": "ta-1",
+                    "tt": "tt-1",
+                    "te": "te-1",
+                    "th": "th-1",
+                    "bo": "bo-1",
+                    "ti": "ti-1",
+                    "to": "to-1",
+                    "ts": "ts-1",
+                    "tn": "tn-1",
+                    "tr": "tr-1",
+                    "tk": "tk-1",
+                    "tw": "tw-1",
+                    "ug": "ug-1",
+                    "uk": "uk-1",
+                    "ur": "ur-1",
+                    "uz": "uz-1",
+                    "vi": "vi-1",
+                    "vo": "vo-1",
+                    "cy": "cy-1",
+                    "wo": "wo-1",
+                    "xh": "xh-1",
+                    "yi": "yi-1",
+                    "yo": "yo-1",
+                    "za": "za-1",
+                    "zu": "zu-1"
+                },
+                "historical_options": {
+                    "ab": "ab-1",
+                    "aa": "aa-1",
+                    "af": "af-1",
+                    "sq": "sq-1",
+                    "am": "am-1",
+                    "ar": "ar-1",
+                    "hy": "hy-1",
+                    "as": "as-1",
+                    "ay": "ay-1",
+                    "az": "az-1",
+                    "ba": "ba-1",
+                    "eu": "eu-1",
+                    "be": "be-1",
+                    "bn": "bn-1",
+                    "bh": "bh-1",
+                    "bi": "bi-1",
+                    "bs": "bs-1",
+                    "br": "br-1",
+                    "bg": "bg-1",
+                    "my": "my-1",
+                    "ca": "ca-1",
+                    "chr": "chr-1",
+                    "zh-TW": "zh-TW-1",
+                    "zh": "zh-1",
+                    "co": "co-1",
+                    "cpe": "cpe-1",
+                    "cpf": "cpf-1",
+                    "crp": "crp-1",
+                    "cpp": "cpp-1",
+                    "hr": "hr-1",
+                    "cs": "cs-1",
+                    "da": "da-1",
+                    "dv": "dv-1",
+                    "nl": "nl-1",
+                    "dz": "dz-1",
+                    "en": "en-1",
+                    "eo": "eo-1",
+                    "et": "et-1",
+                    "fo": "fo-1",
+                    "fj": "fj-1",
+                    "fi": "fi-1",
+                    "fr": "fr-1",
+                    "fy": "fy-1",
+                    "gl": "gl-1",
+                    "lg": "lg-1",
+                    "ka": "ka-1",
+                    "de": "de-1",
+                    "el": "el-1",
+                    "kl": "kl-1",
+                    "gn": "gn-1",
+                    "gu": "gu-1",
+                    "ht": "ht-1",
+                    "ha": "ha-1",
+                    "he": "he-1",
+                    "hi": "hi-1",
+                    "hu": "hu-1",
+                    "is": "is-1",
+                    "id": "id-1",
+                    "ia": "ia-1",
+                    "ie": "ie-1",
+                    "iu": "iu-1",
+                    "ik": "ik-1",
+                    "ga": "ga-1",
+                    "it": "it-1",
+                    "ja": "ja-1",
+                    "jw": "jw-1",
+                    "kn": "kn-1",
+                    "ks": "ks-1",
+                    "kk": "kk-1",
+                    "kha": "kha-1",
+                    "km": "km-1",
+                    "rw": "rw-1",
+                    "ko": "ko-1",
+                    "ku": "ku-1",
+                    "ky": "ky-1",
+                    "lo": "lo-1",
+                    "la": "la-1",
+                    "lv": "lv-1",
+                    "sit-NP": "sit-NP-1",
+                    "ln": "ln-1",
+                    "lt": "lt-1",
+                    "lb": "lb-1",
+                    "mk": "mk-1",
+                    "mg": "mg-1",
+                    "ms": "ms-1",
+                    "ml": "ml-1",
+                    "mt": "mt-1",
+                    "gv": "gv-1",
+                    "mi": "mi-1",
+                    "mr": "mr-1",
+                    "mo": "mo-1",
+                    "mn": "mn-1",
+                    "sr-ME": "sr-ME-1",
+                    "na": "na-1",
+                    "ne": "ne-1",
+                    "nn": "nn-1",
+                    "nb": "nb-1",
+                    "oc": "oc-1",
+                    "or": "or-1",
+                    "om": "om-1",
+                    "ps": "ps-1",
+                    "fa": "fa-1",
+                    "pl": "pl-1",
+                    "pt-BR": "pt-BR-1",
+                    "pt-PT": "pt-PT-1",
+                    "pt": "pt-1",
+                    "pa": "pa-1",
+                    "qu": "qu-1",
+                    "rm": "rm-1",
+                    "ro": "ro-1",
+                    "rn": "rn-1",
+                    "ru": "ru-1",
+                    "sm": "sm-1",
+                    "sg": "sg-1",
+                    "sa": "sa-1",
+                    "gd": "gd-1",
+                    "sco": "sco-1",
+                    "sr": "sr-1",
+                    "sh": "sh-1",
+                    "st": "st-1",
+                    "sn": "sn-1",
+                    "sd": "sd-1",
+                    "si": "si-1",
+                    "ss": "ss-1",
+                    "sk": "sk-1",
+                    "sl": "sl-1",
+                    "so": "so-1",
+                    "es": "es-1",
+                    "su": "su-1",
+                    "sw": "sw-1",
+                    "sv": "sv-1",
+                    "syr": "syr-1",
+                    "fil": "fil-1",
+                    "tg": "tg-1",
+                    "ta": "ta-1",
+                    "tt": "tt-1",
+                    "te": "te-1",
+                    "th": "th-1",
+                    "bo": "bo-1",
+                    "ti": "ti-1",
+                    "to": "to-1",
+                    "ts": "ts-1",
+                    "tn": "tn-1",
+                    "tr": "tr-1",
+                    "tk": "tk-1",
+                    "tw": "tw-1",
+                    "ug": "ug-1",
+                    "uk": "uk-1",
+                    "ur": "ur-1",
+                    "uz": "uz-1",
+                    "vi": "vi-1",
+                    "vo": "vo-1",
+                    "cy": "cy-1",
+                    "wo": "wo-1",
+                    "xh": "xh-1",
+                    "yi": "yi-1",
+                    "yo": "yo-1",
+                    "za": "za-1",
+                    "zu": "zu-1"
+                },
+                "maxlength": 255
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "create_middle": [],
+                "edit": {
+                    "ticket.agent": {
+                        "null": false
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 100,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2025-11-23T04:57:59.251Z",
+            "updated_at": "2025-11-23T04:57:59.251Z",
+            "internal": true,
+            "object": "TicketArticle",
+            "deletable": false
+        },
+        {
+            "id": 17,
+            "name": "name-13",
+            "display": "display-12",
+            "data_type": "input",
+            "data_option": {
+                "type": "text",
+                "maxlength": 100,
+                "null": true,
+                "autocapitalize": false,
+                "item_class": "item_class-2"
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "signup": [],
+                "invite_agent": [],
+                "invite_customer": [],
+                "edit": [],
+                "view": {
+                    "-all-": {
+                        "shown": false
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 100,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.533Z",
+            "updated_at": "2024-11-13T01:30:05.533Z",
+            "internal": true,
+            "object": "User",
+            "deletable": false
+        },
+        {
+            "id": 12,
+            "name": "name-14",
+            "display": "display-5",
+            "data_type": "select",
+            "data_option": {
+                "relation": "relation-4",
+                "nulloption": false,
+                "multiple": false,
+                "null": false,
+                "default": 10,
+                "translate": true,
+                "maxlength": 255
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "create_middle": [],
+                "edit": {
+                    "ticket.agent": {
+                        "null": false
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 100,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.520Z",
+            "updated_at": "2024-11-13T01:30:05.520Z",
+            "internal": true,
+            "object": "TicketArticle",
+            "deletable": false
+        },
+        {
+            "id": 18,
+            "name": "name-15",
+            "display": "display-13",
+            "data_type": "input",
+            "data_option": {
+                "type": "text",
+                "maxlength": 150,
+                "null": true,
+                "item_class": "item_class-2"
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "signup": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "invite_agent": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "invite_customer": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "edit": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "create": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "view": {
+                    "-all-": {
+                        "shown": true
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 200,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.535Z",
+            "updated_at": "2024-11-13T01:30:05.535Z",
+            "internal": true,
+            "object": "User",
+            "deletable": false
+        },
+        {
+            "id": 13,
+            "name": "name-16",
+            "display": "display-14",
+            "data_type": "select",
+            "data_option": {
+                "options": {
+                    "true": "name-16",
+                    "false": "false-1"
+                },
+                "nulloption": false,
+                "multiple": false,
+                "null": true,
+                "default": false,
+                "translate": true,
+                "maxlength": 255
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "create_middle": [],
+                "edit": {
+                    "ticket.agent": {
+                        "null": false
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 200,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.522Z",
+            "updated_at": "2024-11-13T01:30:05.522Z",
+            "internal": true,
+            "object": "TicketArticle",
+            "deletable": false
+        },
+        {
+            "id": 39,
+            "name": "name-17",
+            "display": "display-15",
+            "data_type": "input",
+            "data_option": {
+                "type": "text",
+                "maxlength": 150,
+                "null": false,
+                "item_class": "item_class-2"
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "edit": {
+                    "-all-": {
+                        "null": false
+                    }
+                },
+                "create": {
+                    "-all-": {
+                        "null": false
+                    }
+                },
+                "view": {
+                    "ticket.agent": {
+                        "shown": true
+                    },
+                    "ticket.customer": {
+                        "shown": true
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 200,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.595Z",
+            "updated_at": "2024-11-13T01:30:05.595Z",
+            "internal": true,
+            "object": "Organization",
+            "deletable": false
+        },
+        {
+            "id": 46,
+            "name": "name-17",
+            "display": "display-15",
+            "data_type": "input",
+            "data_option": {
+                "type": "text",
+                "maxlength": 255,
+                "readonly": 1,
+                "null": true
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": [],
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 200,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.613Z",
+            "updated_at": "2024-11-13T01:30:05.613Z",
+            "internal": true,
+            "object": "Group",
+            "deletable": false
+        },
+        {
+            "id": 47,
+            "name": "name-18",
+            "display": "display-15",
+            "data_type": "input",
+            "data_option": {
+                "type": "text",
+                "maxlength": 160,
+                "null": false
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "create": {
+                    "-all-": {
+                        "null": false
+                    }
+                },
+                "edit": {
+                    "-all-": {
+                        "null": false
+                    }
+                },
+                "view": {
+                    "-all-": {
+                        "shown": true
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 210,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.615Z",
+            "updated_at": "2024-11-13T01:30:05.615Z",
+            "internal": true,
+            "object": "Group",
+            "deletable": false
+        },
+        {
+            "id": 48,
+            "name": "name-19",
+            "display": "display-16",
+            "data_type": "tree_select",
+            "data_option": {
+                "default": "",
+                "null": true,
+                "relation": "display-6",
+                "nulloption": true,
+                "do_not_log": true,
+                "maxlength": 255
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "create": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "edit": {
+                    "-all-": {
+                        "null": true
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 250,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.618Z",
+            "updated_at": "2024-11-13T01:30:05.618Z",
+            "internal": true,
+            "object": "Group",
+            "deletable": false
+        },
+        {
+            "id": 49,
+            "name": "name-20",
+            "display": "display-17",
+            "data_type": "integer",
+            "data_option": {
+                "maxlength": 150,
+                "null": true,
+                "note": "note-1",
+                "min": 0,
+                "max": 999999
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "create": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "edit": {
+                    "-all-": {
+                        "null": true
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 300,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.620Z",
+            "updated_at": "2024-11-13T01:30:05.620Z",
+            "internal": true,
+            "object": "Group",
+            "deletable": false
+        },
+        {
+            "id": 19,
+            "name": "name-21",
+            "display": "display-18",
+            "data_type": "input",
+            "data_option": {
+                "type": "text",
+                "maxlength": 150,
+                "null": true,
+                "item_class": "item_class-2"
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "signup": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "invite_agent": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "invite_customer": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "edit": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "create": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "view": {
+                    "-all-": {
+                        "shown": true
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 300,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.538Z",
+            "updated_at": "2024-11-13T01:30:05.538Z",
+            "internal": true,
+            "object": "User",
+            "deletable": false
+        },
+        {
+            "id": 14,
+            "name": "name-22",
+            "display": "display-19",
+            "data_type": "input",
+            "data_option": {
+                "type": "text",
+                "maxlength": 1000,
+                "null": true
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "create_middle": [],
+                "edit": {
+                    "ticket.agent": {
+                        "null": true
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 300,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.525Z",
+            "updated_at": "2024-11-13T01:30:05.525Z",
+            "internal": true,
+            "object": "TicketArticle",
+            "deletable": false
+        },
+        {
+            "id": 15,
+            "name": "name-23",
+            "display": "display-20",
+            "data_type": "input",
+            "data_option": {
+                "type": "text",
+                "maxlength": 1000,
+                "null": true
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "create_top": [],
+                "create_middle": [],
+                "edit": {
+                    "ticket.agent": {
+                        "null": true
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 400,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.527Z",
+            "updated_at": "2024-11-13T01:30:05.527Z",
+            "internal": true,
+            "object": "TicketArticle",
+            "deletable": false
+        },
+        {
+            "id": 20,
+            "name": "name-24",
+            "display": "display-21",
+            "data_type": "input",
+            "data_option": {
+                "type": "email",
+                "maxlength": 150,
+                "null": true,
+                "item_class": "item_class-2"
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "signup": {
+                    "-all-": {
+                        "null": false
+                    }
+                },
+                "invite_agent": {
+                    "-all-": {
+                        "null": false
+                    }
+                },
+                "invite_customer": {
+                    "-all-": {
+                        "null": false
+                    }
+                },
+                "edit": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "create": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "view": {
+                    "-all-": {
+                        "shown": true
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 400,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.540Z",
+            "updated_at": "2024-11-13T01:30:05.540Z",
+            "internal": true,
+            "object": "User",
+            "deletable": false
+        },
+        {
+            "id": 50,
+            "name": "name-25",
+            "display": "display-22",
+            "data_type": "select",
+            "data_option": {
+                "default": "default-1",
+                "options": {
+                    "yes": "default-1",
+                    "new_ticket": "new_ticket-1",
+                    "new_ticket_after_certain_time": "new_ticket_after_certain_time-1"
+                },
+                "null": false,
+                "note": "note-2",
+                "translate": true,
+                "nulloption": true,
+                "maxlength": 255
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "create": {
+                    "-all-": {
+                        "null": false
+                    }
+                },
+                "edit": {
+                    "-all-": {
+                        "null": false
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 400,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.622Z",
+            "updated_at": "2024-11-13T01:30:05.622Z",
+            "internal": true,
+            "object": "Group",
+            "deletable": false
+        },
+        {
+            "id": 51,
+            "name": "name-26",
+            "display": "display-23",
+            "data_type": "integer",
+            "data_option": {
+                "default": "",
+                "min": 1,
+                "max": 3650,
+                "null": true,
+                "note": "note-3",
+                "translate": true
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "create": {
+                    "admin.group": {
+                        "shown": false,
+                        "required": false
+                    }
+                },
+                "edit": {
+                    "admin.group": {
+                        "shown": false,
+                        "required": false
+                    }
+                },
+                "view": {
+                    "admin.group": {
+                        "shown": false
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 410,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.625Z",
+            "updated_at": "2024-11-13T01:30:05.625Z",
+            "internal": true,
+            "object": "Group",
+            "deletable": false
+        },
+        {
+            "id": 52,
+            "name": "name-27",
+            "display": "display-24",
+            "data_type": "select",
+            "data_option": {
+                "default": "default-2",
+                "options": {
+                    "true": "default-1",
+                    "false": "false-2"
+                },
+                "null": false,
+                "note": "note-4",
+                "translate": true,
+                "nulloption": true,
+                "maxlength": 255
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "create": {
+                    "-all-": {
+                        "null": false
+                    }
+                },
+                "edit": {
+                    "-all-": {
+                        "null": false
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 500,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.627Z",
+            "updated_at": "2024-11-13T01:30:05.627Z",
+            "internal": true,
+            "object": "Group",
+            "deletable": false
+        },
+        {
+            "id": 21,
+            "name": "name-28",
+            "display": "display-25",
+            "data_type": "input",
+            "data_option": {
+                "type": "url",
+                "maxlength": 250,
+                "null": true,
+                "item_class": "item_class-2"
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "signup": [],
+                "invite_agent": [],
+                "invite_customer": [],
+                "edit": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "create": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "view": {
+                    "-all-": {
+                        "shown": true
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 500,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.543Z",
+            "updated_at": "2024-11-13T01:30:05.543Z",
+            "internal": true,
+            "object": "User",
+            "deletable": false
+        },
+        {
+            "id": 16,
+            "name": "name-29",
+            "display": "display-26",
+            "data_type": "richtext",
+            "data_option": {
+                "type": "richtext",
+                "maxlength": 150000,
+                "upload": true,
+                "rows": 8,
+                "null": true,
+                "bubble_menu": true
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "create_top": {
+                    "-all-": {
+                        "null": false
+                    }
+                },
+                "edit": {
+                    "-all-": {
+                        "null": true
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 600,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.529Z",
+            "updated_at": "2026-05-01T16:26:57.288Z",
+            "internal": true,
+            "object": "TicketArticle",
+            "deletable": false
+        },
+        {
+            "id": 53,
+            "name": "name-30",
+            "display": "display-27",
+            "data_type": "select",
+            "data_option": {
+                "default": "",
+                "multiple": false,
+                "null": true,
+                "relation": "relation-5",
+                "nulloption": true,
+                "do_not_log": true,
+                "maxlength": 255,
+                "note": "note-5"
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "create": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "edit": {
+                    "-all-": {
+                        "null": true
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 600,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.629Z",
+            "updated_at": "2025-11-23T04:57:59.390Z",
+            "internal": true,
+            "object": "Group",
+            "deletable": false
+        },
+        {
+            "id": 22,
+            "name": "create_article_type-1",
+            "display": "display-28",
+            "data_type": "input",
+            "data_option": {
+                "type": "tel",
+                "maxlength": 100,
+                "null": true,
+                "item_class": "item_class-2"
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "signup": [],
+                "invite_agent": [],
+                "invite_customer": [],
+                "edit": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "create": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "view": {
+                    "-all-": {
+                        "shown": true
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 600,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.545Z",
+            "updated_at": "2024-11-13T01:30:05.545Z",
+            "internal": true,
+            "object": "User",
+            "deletable": false
+        },
+        {
+            "id": 54,
+            "name": "name-31",
+            "display": "display-29",
+            "data_type": "select",
+            "data_option": {
+                "default": "",
+                "multiple": false,
+                "null": true,
+                "relation": "display-29",
+                "nulloption": true,
+                "do_not_log": true,
+                "maxlength": 255
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "create": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "edit": {
+                    "-all-": {
+                        "null": true
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 600,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.632Z",
+            "updated_at": "2024-11-13T01:30:05.632Z",
+            "internal": true,
+            "object": "Group",
+            "deletable": false
+        },
+        {
+            "id": 23,
+            "name": "name-32",
+            "display": "display-30",
+            "data_type": "input",
+            "data_option": {
+                "type": "tel",
+                "maxlength": 100,
+                "null": true,
+                "item_class": "item_class-2"
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "signup": [],
+                "invite_agent": [],
+                "invite_customer": [],
+                "edit": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "create": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "view": {
+                    "-all-": {
+                        "shown": true
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 700,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.548Z",
+            "updated_at": "2024-11-13T01:30:05.548Z",
+            "internal": true,
+            "object": "User",
+            "deletable": false
+        },
+        {
+            "id": 24,
+            "name": "name-33",
+            "display": "display-31",
+            "data_type": "input",
+            "data_option": {
+                "type": "tel",
+                "maxlength": 100,
+                "null": true,
+                "item_class": "item_class-2"
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "signup": [],
+                "invite_agent": [],
+                "invite_customer": [],
+                "edit": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "create": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "view": {
+                    "-all-": {
+                        "shown": true
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 800,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.550Z",
+            "updated_at": "2024-11-13T01:30:05.550Z",
+            "internal": true,
+            "object": "User",
+            "deletable": false
+        },
+        {
+            "id": 25,
+            "name": "name-5",
+            "display": "display-4",
+            "data_type": "autocompletion_ajax",
+            "data_option": {
+                "multiple": false,
+                "nulloption": true,
+                "null": true,
+                "relation": "display-4",
+                "item_class": "item_class-2"
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "signup": [],
+                "invite_agent": [],
+                "invite_customer": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "edit": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "create": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "view": {
+                    "-all-": {
+                        "shown": true
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 900,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.553Z",
+            "updated_at": "2024-11-13T01:30:05.553Z",
+            "internal": true,
+            "object": "User",
+            "deletable": false
+        },
+        {
+            "id": 11,
+            "name": "name-34",
+            "display": "display-32",
+            "data_type": "tag",
+            "data_option": {
+                "type": "text",
+                "null": true,
+                "translate": false
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "create_bottom": {
+                    "ticket.agent": {
+                        "null": true
+                    }
+                },
+                "edit": []
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 900,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.517Z",
+            "updated_at": "2024-11-13T01:30:05.517Z",
+            "internal": true,
+            "object": "Ticket",
+            "deletable": false
+        },
+        {
+            "id": 26,
+            "name": "name-35",
+            "display": "display-33",
+            "data_type": "autocompletion_ajax",
+            "data_option": {
+                "multiple": true,
+                "nulloption": true,
+                "null": true,
+                "relation": "display-4",
+                "item_class": "item_class-2",
+                "display_limit": 3,
+                "belongs_to": "belongs_to-1"
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "signup": [],
+                "invite_agent": [],
+                "invite_customer": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "edit": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "create": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "view": {
+                    "-all-": {
+                        "shown": true
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 901,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.555Z",
+            "updated_at": "2024-11-13T01:30:05.555Z",
+            "internal": true,
+            "object": "User",
+            "deletable": false
+        },
+        {
+            "id": 27,
+            "name": "name-36",
+            "display": "display-34",
+            "data_type": "input",
+            "data_option": {
+                "type": "text",
+                "maxlength": 200,
+                "null": true,
+                "item_class": "item_class-2"
+            },
+            "data_option_new": [],
+            "editable": true,
+            "active": true,
+            "screens": {
+                "signup": [],
+                "invite_agent": [],
+                "invite_customer": [],
+                "edit": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "create": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "view": {
+                    "-all-": {
+                        "shown": true
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 1000,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.558Z",
+            "updated_at": "2024-11-13T01:30:05.558Z",
+            "internal": false,
+            "object": "User",
+            "deletable": true
+        },
+        {
+            "id": 28,
+            "name": "name-37",
+            "display": "display-35",
+            "data_type": "input",
+            "data_option": {
+                "type": "text",
+                "maxlength": 100,
+                "null": true
+            },
+            "data_option_new": [],
+            "editable": true,
+            "active": false,
+            "screens": {
+                "signup": [],
+                "invite_agent": [],
+                "invite_customer": [],
+                "edit": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "create": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "view": {
+                    "-all-": {
+                        "shown": true
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 1100,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.562Z",
+            "updated_at": "2024-11-13T01:30:05.562Z",
+            "internal": false,
+            "object": "User",
+            "deletable": true
+        },
+        {
+            "id": 29,
+            "name": "name-38",
+            "display": "display-36",
+            "data_type": "input",
+            "data_option": {
+                "type": "text",
+                "maxlength": 100,
+                "null": true,
+                "item_class": "item_class-2"
+            },
+            "data_option_new": [],
+            "editable": true,
+            "active": false,
+            "screens": {
+                "signup": [],
+                "invite_agent": [],
+                "invite_customer": [],
+                "edit": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "create": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "view": {
+                    "-all-": {
+                        "shown": true
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 1200,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.566Z",
+            "updated_at": "2024-11-13T01:30:05.566Z",
+            "internal": false,
+            "object": "User",
+            "deletable": true
+        },
+        {
+            "id": 30,
+            "name": "name-39",
+            "display": "display-37",
+            "data_type": "input",
+            "data_option": {
+                "type": "text",
+                "maxlength": 100,
+                "null": true,
+                "item_class": "item_class-2"
+            },
+            "data_option_new": [],
+            "editable": true,
+            "active": false,
+            "screens": {
+                "signup": [],
+                "invite_agent": [],
+                "invite_customer": [],
+                "edit": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "create": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "view": {
+                    "-all-": {
+                        "shown": true
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 1300,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.570Z",
+            "updated_at": "2024-11-13T01:30:05.570Z",
+            "internal": false,
+            "object": "User",
+            "deletable": true
+        },
+        {
+            "id": 31,
+            "name": "name-40",
+            "display": "display-38",
+            "data_type": "input",
+            "data_option": {
+                "type": "text",
+                "maxlength": 100,
+                "null": true,
+                "item_class": "item_class-2"
+            },
+            "data_option_new": [],
+            "editable": true,
+            "active": false,
+            "screens": {
+                "signup": [],
+                "invite_agent": [],
+                "invite_customer": [],
+                "edit": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "create": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "view": {
+                    "-all-": {
+                        "shown": true
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 1325,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.575Z",
+            "updated_at": "2024-11-13T01:30:05.575Z",
+            "internal": false,
+            "object": "User",
+            "deletable": true
+        },
+        {
+            "id": 32,
+            "name": "name-41",
+            "display": "display-39",
+            "data_type": "textarea",
+            "data_option": {
+                "type": "text",
+                "maxlength": 500,
+                "rows": 4,
+                "null": true,
+                "item_class": "item_class-2"
+            },
+            "data_option_new": [],
+            "editable": true,
+            "active": true,
+            "screens": {
+                "signup": [],
+                "invite_agent": [],
+                "invite_customer": [],
+                "edit": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "create": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "view": {
+                    "-all-": {
+                        "shown": true
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 1350,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.577Z",
+            "updated_at": "2024-11-13T01:30:05.577Z",
+            "internal": false,
+            "object": "User",
+            "deletable": true
+        },
+        {
+            "id": 33,
+            "name": "name-42",
+            "display": "display-40",
+            "data_type": "input",
+            "data_option": {
+                "type": "password",
+                "maxlength": 1001,
+                "null": true,
+                "autocomplete": "autocomplete-1",
+                "item_class": "item_class-2"
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "signup": {
+                    "-all-": {
+                        "null": false
+                    }
+                },
+                "invite_agent": [],
+                "invite_customer": [],
+                "edit": {
+                    "admin.user": {
+                        "null": true
+                    }
+                },
+                "create": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "view": []
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 1400,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.580Z",
+            "updated_at": "2024-11-13T01:30:05.580Z",
+            "internal": true,
+            "object": "User",
+            "deletable": false
+        },
+        {
+            "id": 40,
+            "name": "name-43",
+            "display": "display-41",
+            "data_type": "boolean",
+            "data_option": {
+                "null": true,
+                "default": true,
+                "note": "note-6",
+                "item_class": "item_class-2",
+                "options": {
+                    "true": "default-1",
+                    "false": "false-2"
+                },
+                "translate": true,
+                "permission": [
+                    "permission-3"
+                ]
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "edit": {
+                    "-all-": {
+                        "null": false
+                    }
+                },
+                "create": {
+                    "-all-": {
+                        "null": false
+                    }
+                },
+                "view": {
+                    "ticket.agent": {
+                        "shown": true
+                    },
+                    "ticket.customer": {
+                        "shown": false
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 1400,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.598Z",
+            "updated_at": "2024-11-13T01:30:05.598Z",
+            "internal": true,
+            "object": "Organization",
+            "deletable": false
+        },
+        {
+            "id": 55,
+            "name": "name-44",
+            "display": "display-42",
+            "data_type": "active",
+            "data_option": {
+                "null": false,
+                "default": true,
+                "permission": [
+                    "permission-4"
+                ]
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "create": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "edit": {
+                    "-all-": {
+                        "null": false
+                    }
+                },
+                "view": {
+                    "-all-": {
+                        "shown": false
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 1400,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.634Z",
+            "updated_at": "2024-11-13T01:30:05.634Z",
+            "internal": true,
+            "object": "Group",
+            "deletable": false
+        },
+        {
+            "id": 41,
+            "name": "name-45",
+            "display": "display-43",
+            "data_type": "boolean",
+            "data_option": {
+                "null": true,
+                "default": false,
+                "note": "note-7",
+                "item_class": "item_class-2",
+                "options": {
+                    "true": "default-1",
+                    "false": "false-2"
+                },
+                "translate": true,
+                "permission": [
+                    "permission-3"
+                ]
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "edit": {
+                    "-all-": {
+                        "null": false
+                    }
+                },
+                "create": {
+                    "-all-": {
+                        "null": false
+                    }
+                },
+                "view": {
+                    "ticket.agent": {
+                        "shown": true
+                    },
+                    "ticket.customer": {
+                        "shown": false
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 1410,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.600Z",
+            "updated_at": "2024-11-13T01:30:05.600Z",
+            "internal": true,
+            "object": "Organization",
+            "deletable": false
+        },
+        {
+            "id": 42,
+            "name": "name-46",
+            "display": "display-44",
+            "data_type": "input",
+            "data_option": {
+                "type": "text",
+                "maxlength": 150,
+                "null": true,
+                "item_class": "item_class-2"
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "edit": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "create": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "view": {
+                    "ticket.agent": {
+                        "shown": true
+                    },
+                    "ticket.customer": {
+                        "shown": false
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 1420,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.603Z",
+            "updated_at": "2024-11-13T01:30:05.603Z",
+            "internal": true,
+            "object": "Organization",
+            "deletable": false
+        },
+        {
+            "id": 60,
+            "name": "name-47",
+            "display": "display-45",
+            "data_type": "select",
+            "data_option": {
+                "default": "default-3",
+                "options": [
+                    {
+                        "name": "name-48",
+                        "value": "default-3"
+                    },
+                    {
+                        "name": "name-49",
+                        "value": "value-1"
+                    },
+                    {
+                        "name": "name-50",
+                        "value": "value-2"
+                    }
+                ],
+                "nulloption": false,
+                "multiple": false,
+                "null": false,
+                "translate": true,
+                "maxlength": 255
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "create": {
+                    "-all-": {
+                        "null": false
+                    }
+                },
+                "edit": {
+                    "-all-": {
+                        "null": false
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 1450,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2026-05-01T16:26:57.061Z",
+            "updated_at": "2026-05-01T16:26:57.477Z",
+            "internal": true,
+            "object": "Group",
+            "deletable": false
+        },
+        {
+            "id": 43,
+            "name": "name-51",
+            "display": "display-46",
+            "data_type": "boolean",
+            "data_option": {
+                "null": true,
+                "default": false,
+                "item_class": "item_class-2",
+                "options": {
+                    "false": "false-2",
+                    "true": "default-1"
+                },
+                "translate": true,
+                "permission": [
+                    "permission-3"
+                ]
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "edit": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "create": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "view": {
+                    "-all-": {
+                        "shown": false
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 1450,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.605Z",
+            "updated_at": "2024-11-13T01:30:05.605Z",
+            "internal": true,
+            "object": "Organization",
+            "deletable": false
+        },
+        {
+            "id": 34,
+            "name": "name-51",
+            "display": "display-46",
+            "data_type": "boolean",
+            "data_option": {
+                "null": true,
+                "default": false,
+                "item_class": "item_class-2",
+                "options": {
+                    "false": "false-2",
+                    "true": "default-1"
+                },
+                "translate": true,
+                "permission": [
+                    "permission-5",
+                    "permission-1"
+                ]
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "edit": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "create": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "view": {
+                    "-all-": {
+                        "shown": false
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 1490,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.582Z",
+            "updated_at": "2024-11-13T01:30:05.582Z",
+            "internal": true,
+            "object": "User",
+            "deletable": false
+        },
+        {
+            "id": 44,
+            "name": "name-52",
+            "display": "display-47",
+            "data_type": "richtext",
+            "data_option": {
+                "type": "richtext",
+                "maxlength": 5000,
+                "no_images": true,
+                "null": true,
+                "note": "note-8"
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "edit": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "create": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "view": {
+                    "ticket.agent": {
+                        "shown": true
+                    },
+                    "ticket.customer": {
+                        "shown": false
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 1500,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.608Z",
+            "updated_at": "2026-05-01T16:26:57.471Z",
+            "internal": true,
+            "object": "Organization",
+            "deletable": false
+        },
+        {
+            "id": 56,
+            "name": "name-52",
+            "display": "display-47",
+            "data_type": "richtext",
+            "data_option": {
+                "type": "richtext",
+                "maxlength": 250,
+                "no_images": true,
+                "null": true,
+                "note": "note-8"
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "create": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "edit": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "view": {
+                    "-all-": {
+                        "shown": true
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 1500,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.636Z",
+            "updated_at": "2026-05-01T16:26:57.473Z",
+            "internal": true,
+            "object": "Group",
+            "deletable": false
+        },
+        {
+            "id": 35,
+            "name": "name-52",
+            "display": "display-47",
+            "data_type": "richtext",
+            "data_option": {
+                "type": "richtext",
+                "maxlength": 5000,
+                "no_images": true,
+                "null": true,
+                "note": "note-8"
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "signup": [],
+                "invite_agent": [],
+                "invite_customer": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "edit": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "create": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "view": {
+                    "-all-": {
+                        "shown": true
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 1500,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.585Z",
+            "updated_at": "2026-05-01T16:26:57.468Z",
+            "internal": true,
+            "object": "User",
+            "deletable": false
+        },
+        {
+            "id": 36,
+            "name": "name-53",
+            "display": "display-48",
+            "data_type": "user_permission",
+            "data_option": {
+                "relation": "relation-6",
+                "null": false,
+                "item_class": "item_class-3",
+                "permission": [
+                    "permission-5"
+                ]
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "signup": [],
+                "invite_agent": {
+                    "-all-": {
+                        "null": false,
+                        "default": [
+                            2
+                        ]
+                    }
+                },
+                "invite_customer": [],
+                "edit": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "create": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "view": {
+                    "-all-": {
+                        "shown": false
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 1600,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.587Z",
+            "updated_at": "2024-11-13T01:30:05.587Z",
+            "internal": true,
+            "object": "User",
+            "deletable": false
+        },
+        {
+            "id": 37,
+            "name": "name-54",
+            "display": "display-49",
+            "data_type": "group_permissions",
+            "data_option": {
+                "null": false,
+                "item_class": "item_class-3",
+                "permission": [
+                    "permission-5"
+                ]
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "signup": [],
+                "invite_agent": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "invite_customer": [],
+                "edit": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "create": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "view": {
+                    "-all-": {
+                        "shown": false
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 1700,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.590Z",
+            "updated_at": "2024-11-13T01:30:05.590Z",
+            "internal": true,
+            "object": "User",
+            "deletable": false
+        },
+        {
+            "id": 57,
+            "name": "name-55",
+            "display": "display-50",
+            "data_type": "active",
+            "data_option": {
+                "null": true,
+                "default": true,
+                "permission": [
+                    "permission-4"
+                ]
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "create": {
+                    "-all-": {
+                        "null": true
+                    }
+                },
+                "edit": {
+                    "-all-": {
+                        "null": false
+                    }
+                },
+                "view": {
+                    "-all-": {
+                        "shown": false
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 1800,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.639Z",
+            "updated_at": "2024-11-13T01:30:05.639Z",
+            "internal": true,
+            "object": "Group",
+            "deletable": false
+        },
+        {
+            "id": 45,
+            "name": "name-55",
+            "display": "display-50",
+            "data_type": "active",
+            "data_option": {
+                "null": true,
+                "default": true,
+                "permission": [
+                    "permission-3"
+                ]
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "edit": {
+                    "-all-": {
+                        "null": false
+                    }
+                },
+                "create": {
+                    "-all-": {
+                        "null": false
+                    }
+                },
+                "view": {
+                    "ticket.agent": {
+                        "shown": false
+                    },
+                    "ticket.customer": {
+                        "shown": false
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 1800,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.610Z",
+            "updated_at": "2024-11-13T01:30:05.610Z",
+            "internal": true,
+            "object": "Organization",
+            "deletable": false
+        },
+        {
+            "id": 38,
+            "name": "name-55",
+            "display": "display-50",
+            "data_type": "active",
+            "data_option": {
+                "null": true,
+                "default": true,
+                "permission": [
+                    "permission-5",
+                    "permission-1"
+                ]
+            },
+            "data_option_new": [],
+            "editable": false,
+            "active": true,
+            "screens": {
+                "signup": [],
+                "invite_agent": [],
+                "invite_customer": [],
+                "edit": {
+                    "-all-": {
+                        "null": false
+                    }
+                },
+                "create": {
+                    "-all-": {
+                        "null": false
+                    }
+                },
+                "view": {
+                    "-all-": {
+                        "shown": false
+                    }
+                }
+            },
+            "to_create": false,
+            "to_migrate": false,
+            "to_delete": false,
+            "to_config": false,
+            "position": 1800,
+            "created_by_id": 1,
+            "updated_by_id": 1,
+            "created_at": "2024-11-13T01:30:05.592Z",
+            "updated_at": "2024-11-13T01:30:05.592Z",
+            "internal": true,
+            "object": "User",
+            "deletable": false
+        }
+    ]
+}

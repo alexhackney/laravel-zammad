@@ -1,0 +1,1135 @@
+{
+    "method": "GET",
+    "path": "/user_access_token",
+    "status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "body": {
+        "tokens": [
+            {
+                "id": 121,
+                "user_id": 3,
+                "name": "name-56",
+                "action": "action-1",
+                "preferences": {
+                    "permission": [
+                        "permission-6",
+                        "permission-5",
+                        "permission-1",
+                        "permission-7"
+                    ]
+                },
+                "last_used_at": "2026-10-28T19:37:05.119Z",
+                "expires_at": null,
+                "created_at": "2026-10-28T19:35:49.374Z",
+                "updated_at": "2026-10-28T19:37:05.119Z"
+            },
+            {
+                "id": 52,
+                "user_id": 3,
+                "name": "name-57",
+                "action": "action-1",
+                "preferences": {
+                    "permission": [
+                        "permission-8",
+                        "permission-1"
+                    ]
+                },
+                "last_used_at": null,
+                "expires_at": null,
+                "created_at": "2025-12-23T05:16:35.365Z",
+                "updated_at": "2025-12-23T05:16:35.365Z"
+            },
+            {
+                "id": 31,
+                "user_id": 3,
+                "name": "name-58",
+                "action": "action-1",
+                "preferences": {
+                    "permission": [
+                        "permission-8",
+                        "permission-9",
+                        "permission-10",
+                        "permission-11",
+                        "permission-12",
+                        "permission-13",
+                        "permission-1",
+                        "permission-14"
+                    ]
+                },
+                "last_used_at": "2025-08-10T05:39:15.544Z",
+                "expires_at": null,
+                "created_at": "2025-08-10T05:34:27.535Z",
+                "updated_at": "2025-08-10T05:39:15.544Z"
+            }
+        ],
+        "permissions": [
+            {
+                "id": 1,
+                "name": "permission-8",
+                "label": "label-1",
+                "description": "description-1",
+                "preferences": {
+                    "prio": 1000
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:04.916Z",
+                "updated_at": "2024-11-13T01:30:04.916Z"
+            },
+            {
+                "id": 77,
+                "name": "name-59",
+                "label": "label-2",
+                "description": "description-2",
+                "preferences": {
+                    "prio": 1333
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2026-05-01T16:26:56.546Z",
+                "updated_at": "2026-05-01T16:26:56.546Z"
+            },
+            {
+                "id": 80,
+                "name": "name-60",
+                "label": "label-3",
+                "description": "description-3",
+                "preferences": {
+                    "prio": 1336
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2026-05-01T16:26:56.941Z",
+                "updated_at": "2026-05-01T16:26:56.941Z"
+            },
+            {
+                "id": 79,
+                "name": "name-61",
+                "label": "label-4",
+                "description": "description-4",
+                "preferences": {
+                    "prio": 1335
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2026-05-01T16:26:56.788Z",
+                "updated_at": "2026-05-01T16:26:56.788Z"
+            },
+            {
+                "id": 78,
+                "name": "name-62",
+                "label": "label-5",
+                "description": "description-5",
+                "preferences": {
+                    "prio": 1334
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2026-05-01T16:26:56.566Z",
+                "updated_at": "2026-05-01T16:26:56.566Z"
+            },
+            {
+                "id": 81,
+                "name": "name-63",
+                "label": "label-6",
+                "description": "description-6",
+                "preferences": {
+                    "prio": 1333
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2026-05-01T16:26:56.947Z",
+                "updated_at": "2026-05-01T16:26:56.947Z"
+            },
+            {
+                "id": 38,
+                "name": "name-64",
+                "label": "label-7",
+                "description": "description-7",
+                "preferences": {
+                    "prio": 1350
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:05.017Z",
+                "updated_at": "2024-11-13T01:30:05.017Z"
+            },
+            {
+                "id": 82,
+                "name": "name-65",
+                "label": "label-8",
+                "description": "description-8",
+                "preferences": {
+                    "prio": 1295,
+                    "setting": {
+                        "name": "name-66",
+                        "value": true
+                    }
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2026-05-01T16:26:57.687Z",
+                "updated_at": "2026-05-01T16:26:57.687Z"
+            },
+            {
+                "id": 31,
+                "name": "name-67",
+                "label": "label-9",
+                "description": "description-9",
+                "preferences": {
+                    "prio": 1300
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:04.999Z",
+                "updated_at": "2024-11-13T01:30:04.999Z"
+            },
+            {
+                "id": 11,
+                "name": "name-68",
+                "label": "label-10",
+                "description": "description-10",
+                "preferences": {
+                    "prio": 1100
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:04.945Z",
+                "updated_at": "2024-11-13T01:30:04.945Z"
+            },
+            {
+                "id": 24,
+                "name": "name-69",
+                "label": "label-11",
+                "description": "description-11",
+                "preferences": {
+                    "prio": 1230
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:04.980Z",
+                "updated_at": "2024-11-13T01:30:04.980Z"
+            },
+            {
+                "id": 22,
+                "name": "name-70",
+                "label": "display-21",
+                "description": "description-12",
+                "preferences": {
+                    "prio": 1210
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:04.974Z",
+                "updated_at": "2024-11-13T01:30:04.974Z"
+            },
+            {
+                "id": 28,
+                "name": "name-71",
+                "label": "label-12",
+                "description": "description-13",
+                "preferences": {
+                    "prio": 1270
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:04.991Z",
+                "updated_at": "2024-11-13T01:30:04.991Z"
+            },
+            {
+                "id": 21,
+                "name": "name-72",
+                "label": "label-13",
+                "description": "description-14",
+                "preferences": {
+                    "prio": 1200
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:04.972Z",
+                "updated_at": "2024-11-13T01:30:04.972Z"
+            },
+            {
+                "id": 25,
+                "name": "name-73",
+                "label": "label-14",
+                "description": "description-15",
+                "preferences": {
+                    "prio": 1240
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:04.983Z",
+                "updated_at": "2026-05-01T16:26:56.768Z"
+            },
+            {
+                "id": 26,
+                "name": "name-74",
+                "label": "label-15",
+                "description": "description-16",
+                "preferences": {
+                    "prio": 1255
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:04.986Z",
+                "updated_at": "2026-05-01T16:26:56.771Z"
+            },
+            {
+                "id": 75,
+                "name": "name-75",
+                "label": "label-16",
+                "description": "description-17",
+                "preferences": {
+                    "prio": 1250
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2025-11-23T04:57:59.076Z",
+                "updated_at": "2026-05-01T16:26:56.774Z"
+            },
+            {
+                "id": 23,
+                "name": "name-76",
+                "label": "label-17",
+                "description": "description-18",
+                "preferences": {
+                    "prio": 1220
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:04.977Z",
+                "updated_at": "2024-11-13T01:30:04.977Z"
+            },
+            {
+                "id": 29,
+                "name": "name-77",
+                "label": "label-18",
+                "description": "description-19",
+                "preferences": {
+                    "prio": 1280
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:04.994Z",
+                "updated_at": "2024-11-13T01:30:04.994Z"
+            },
+            {
+                "id": 20,
+                "name": "name-78",
+                "label": "display-25",
+                "description": "description-20",
+                "preferences": {
+                    "prio": 1190
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:04.969Z",
+                "updated_at": "2024-11-13T01:30:04.969Z"
+            },
+            {
+                "id": 30,
+                "name": "name-79",
+                "label": "label-19",
+                "description": "description-21",
+                "preferences": {
+                    "prio": 1290
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:04.996Z",
+                "updated_at": "2024-11-13T01:30:04.996Z"
+            },
+            {
+                "id": 50,
+                "name": "name-80",
+                "label": "label-20",
+                "description": "description-22",
+                "preferences": {
+                    "prio": 1095
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:05.050Z",
+                "updated_at": "2026-05-01T16:26:56.764Z"
+            },
+            {
+                "id": 42,
+                "name": "name-81",
+                "label": "label-21",
+                "description": "description-23",
+                "preferences": {
+                    "prio": 1390
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:05.028Z",
+                "updated_at": "2024-11-13T01:30:05.028Z"
+            },
+            {
+                "id": 44,
+                "name": "name-82",
+                "label": "label-22",
+                "description": "description-24",
+                "preferences": {
+                    "prio": 1410
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:05.034Z",
+                "updated_at": "2024-11-13T01:30:05.034Z"
+            },
+            {
+                "id": 3,
+                "name": "permission-4",
+                "label": "label-23",
+                "description": "description-25",
+                "preferences": {
+                    "prio": 1020
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:04.924Z",
+                "updated_at": "2024-11-13T01:30:04.924Z"
+            },
+            {
+                "id": 37,
+                "name": "name-83",
+                "label": "label-24",
+                "description": "description-26",
+                "preferences": {
+                    "prio": 1340
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:05.014Z",
+                "updated_at": "2024-11-13T01:30:05.014Z"
+            },
+            {
+                "id": 19,
+                "name": "name-84",
+                "label": "label-25",
+                "description": "description-27",
+                "preferences": {
+                    "prio": 1180
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:04.966Z",
+                "updated_at": "2024-11-13T01:30:04.966Z"
+            },
+            {
+                "id": 8,
+                "name": "name-85",
+                "label": "label-26",
+                "description": "description-28",
+                "preferences": {
+                    "prio": 1070
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:04.937Z",
+                "updated_at": "2024-11-13T01:30:04.937Z"
+            },
+            {
+                "id": 45,
+                "name": "name-86",
+                "label": "label-27",
+                "description": "description-29",
+                "preferences": {
+                    "prio": 1420
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:05.037Z",
+                "updated_at": "2024-11-13T01:30:05.037Z"
+            },
+            {
+                "id": 46,
+                "name": "name-87",
+                "label": "label-28",
+                "description": "description-30",
+                "preferences": {
+                    "prio": 1430
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:05.040Z",
+                "updated_at": "2024-11-13T01:30:05.040Z"
+            },
+            {
+                "id": 39,
+                "name": "permission-6",
+                "label": "label-29",
+                "description": "description-31",
+                "preferences": {
+                    "prio": 1360
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:05.019Z",
+                "updated_at": "2024-11-13T01:30:05.019Z"
+            },
+            {
+                "id": 5,
+                "name": "permission-3",
+                "label": "label-30",
+                "description": "description-32",
+                "preferences": {
+                    "prio": 1040
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:04.929Z",
+                "updated_at": "2024-11-13T01:30:04.929Z"
+            },
+            {
+                "id": 6,
+                "name": "name-88",
+                "label": "label-31",
+                "description": "description-33",
+                "preferences": {
+                    "prio": 1050
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:04.932Z",
+                "updated_at": "2024-11-13T01:30:04.932Z"
+            },
+            {
+                "id": 47,
+                "name": "name-89",
+                "label": "label-32",
+                "description": "description-34",
+                "preferences": {
+                    "prio": 1440
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:05.042Z",
+                "updated_at": "2024-11-13T01:30:05.042Z"
+            },
+            {
+                "id": 14,
+                "name": "name-90",
+                "label": "label-33",
+                "description": "description-35",
+                "preferences": {
+                    "prio": 1130
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:04.953Z",
+                "updated_at": "2024-11-13T01:30:04.953Z"
+            },
+            {
+                "id": 17,
+                "name": "name-91",
+                "label": "label-34",
+                "description": "description-36",
+                "preferences": {
+                    "prio": 1160
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:04.961Z",
+                "updated_at": "2024-11-13T01:30:04.961Z"
+            },
+            {
+                "id": 4,
+                "name": "name-92",
+                "label": "display-48",
+                "description": "description-37",
+                "preferences": {
+                    "prio": 1030
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:04.926Z",
+                "updated_at": "2024-11-13T01:30:04.926Z"
+            },
+            {
+                "id": 16,
+                "name": "name-93",
+                "label": "label-35",
+                "description": "description-38",
+                "preferences": {
+                    "prio": 1150
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:04.958Z",
+                "updated_at": "2024-11-13T01:30:04.958Z"
+            },
+            {
+                "id": 33,
+                "name": "name-94",
+                "label": "label-36",
+                "description": "description-39",
+                "preferences": {
+                    "prio": 1320
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:05.004Z",
+                "updated_at": "2024-11-13T01:30:05.004Z"
+            },
+            {
+                "id": 48,
+                "name": "name-95",
+                "label": "label-37",
+                "description": "description-40",
+                "preferences": {
+                    "prio": 1450
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:05.045Z",
+                "updated_at": "2024-11-13T01:30:05.045Z"
+            },
+            {
+                "id": 12,
+                "name": "name-96",
+                "label": "label-38",
+                "description": "description-41",
+                "preferences": {
+                    "prio": 1110
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:04.947Z",
+                "updated_at": "2024-11-13T01:30:04.947Z"
+            },
+            {
+                "id": 32,
+                "name": "name-97",
+                "label": "label-39",
+                "description": "description-42",
+                "preferences": {
+                    "prio": 1310
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:05.001Z",
+                "updated_at": "2025-11-23T04:57:59.396Z"
+            },
+            {
+                "id": 49,
+                "name": "name-98",
+                "label": "label-40",
+                "description": "description-43",
+                "preferences": {
+                    "prio": 1460
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:05.047Z",
+                "updated_at": "2024-11-13T01:30:05.047Z"
+            },
+            {
+                "id": 10,
+                "name": "name-99",
+                "label": "display-32",
+                "description": "description-44",
+                "preferences": {
+                    "prio": 1090
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:04.942Z",
+                "updated_at": "2024-11-13T01:30:04.942Z"
+            },
+            {
+                "id": 9,
+                "name": "name-100",
+                "label": "label-41",
+                "description": "description-45",
+                "preferences": {
+                    "prio": 1080
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:04.939Z",
+                "updated_at": "2024-11-13T01:30:04.939Z"
+            },
+            {
+                "id": 7,
+                "name": "name-101",
+                "label": "label-42",
+                "description": "description-46",
+                "preferences": {
+                    "prio": 1060
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:04.934Z",
+                "updated_at": "2024-11-13T01:30:04.934Z"
+            },
+            {
+                "id": 34,
+                "name": "name-102",
+                "label": "label-43",
+                "description": "description-47",
+                "preferences": {
+                    "prio": 1330
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:05.007Z",
+                "updated_at": "2024-11-13T01:30:05.007Z"
+            },
+            {
+                "id": 35,
+                "name": "name-103",
+                "label": "label-44",
+                "description": "description-48",
+                "preferences": {
+                    "prio": 1331
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:05.009Z",
+                "updated_at": "2024-11-13T01:30:05.009Z"
+            },
+            {
+                "id": 36,
+                "name": "name-104",
+                "label": "label-45",
+                "description": "description-49",
+                "preferences": {
+                    "prio": 1332
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:05.012Z",
+                "updated_at": "2024-11-13T01:30:05.012Z"
+            },
+            {
+                "id": 41,
+                "name": "name-105",
+                "label": "label-46",
+                "description": "description-50",
+                "preferences": {
+                    "prio": 1380
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:05.025Z",
+                "updated_at": "2024-11-13T01:30:05.025Z"
+            },
+            {
+                "id": 40,
+                "name": "name-106",
+                "label": "label-47",
+                "description": "description-51",
+                "preferences": {
+                    "prio": 1370
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:05.022Z",
+                "updated_at": "2024-11-13T01:30:05.022Z"
+            },
+            {
+                "id": 18,
+                "name": "name-107",
+                "label": "label-48",
+                "description": "description-52",
+                "preferences": {
+                    "prio": 1170
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:04.964Z",
+                "updated_at": "2024-11-13T01:30:04.964Z"
+            },
+            {
+                "id": 43,
+                "name": "name-108",
+                "label": "label-49",
+                "description": "description-53",
+                "preferences": {
+                    "prio": 1400
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:05.031Z",
+                "updated_at": "2024-11-13T01:30:05.031Z"
+            },
+            {
+                "id": 13,
+                "name": "name-109",
+                "label": "label-50",
+                "description": "description-54",
+                "preferences": {
+                    "prio": 1120
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:04.950Z",
+                "updated_at": "2024-11-13T01:30:04.950Z"
+            },
+            {
+                "id": 2,
+                "name": "permission-5",
+                "label": "label-51",
+                "description": "description-55",
+                "preferences": {
+                    "prio": 1010
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:04.921Z",
+                "updated_at": "2024-11-13T01:30:04.921Z"
+            },
+            {
+                "id": 15,
+                "name": "name-110",
+                "label": "label-52",
+                "description": "description-56",
+                "preferences": {
+                    "prio": 1140
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:04.955Z",
+                "updated_at": "2024-11-13T01:30:04.955Z"
+            },
+            {
+                "id": 51,
+                "name": "name-111",
+                "label": "label-11",
+                "description": "description-57",
+                "preferences": {
+                    "prio": 1470,
+                    "disabled": true
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:05.053Z",
+                "updated_at": "2024-11-13T01:30:05.053Z"
+            },
+            {
+                "id": 52,
+                "name": "permission-9",
+                "label": "label-53",
+                "description": "description-58",
+                "preferences": {
+                    "prio": 1480
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:05.055Z",
+                "updated_at": "2024-11-13T01:30:05.055Z"
+            },
+            {
+                "id": 53,
+                "name": "name-112",
+                "label": "display-28",
+                "description": "description-59",
+                "preferences": {
+                    "prio": 1490,
+                    "disabled": true
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:05.058Z",
+                "updated_at": "2024-11-13T01:30:05.058Z"
+            },
+            {
+                "id": 54,
+                "name": "permission-10",
+                "label": "label-54",
+                "description": "description-60",
+                "preferences": {
+                    "prio": 1500
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:05.060Z",
+                "updated_at": "2024-11-13T01:30:05.060Z"
+            },
+            {
+                "id": 55,
+                "name": "name-113",
+                "label": "label-25",
+                "description": "description-61",
+                "preferences": {
+                    "prio": 1510,
+                    "disabled": true
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:05.063Z",
+                "updated_at": "2024-11-13T01:30:05.063Z"
+            },
+            {
+                "id": 56,
+                "name": "permission-11",
+                "label": "label-55",
+                "description": "description-62",
+                "preferences": {
+                    "prio": 1520
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:05.065Z",
+                "updated_at": "2024-11-13T01:30:05.065Z"
+            },
+            {
+                "id": 57,
+                "name": "permission-12",
+                "label": "label-56",
+                "description": "description-63",
+                "preferences": {
+                    "prio": 1530
+                },
+                "active": true,
+                "allow_signup": true,
+                "created_at": "2024-11-13T01:30:05.068Z",
+                "updated_at": "2024-11-13T01:30:05.068Z"
+            },
+            {
+                "id": 58,
+                "name": "permission-13",
+                "label": "label-57",
+                "description": "description-64",
+                "preferences": {
+                    "prio": 1540
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:05.070Z",
+                "updated_at": "2024-11-13T01:30:05.070Z"
+            },
+            {
+                "id": 59,
+                "name": "name-114",
+                "label": "label-43",
+                "description": "description-65",
+                "preferences": {
+                    "prio": 1550,
+                    "disabled": true
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:05.073Z",
+                "updated_at": "2024-11-13T01:30:05.073Z"
+            },
+            {
+                "id": 60,
+                "name": "permission-1",
+                "label": "label-58",
+                "description": "description-66",
+                "preferences": {
+                    "prio": 1560,
+                    "plugin": [
+                        "plugin-1"
+                    ]
+                },
+                "active": true,
+                "allow_signup": false,
+                "created_at": "2024-11-13T01:30:05.075Z",
+                "updated_at": "2024-11-13T01:30:05.075Z"
+            },
+            {
+                "id": 62,
+                "name": "permission-14",
+                "label": "label-59",
+                "description": "description-67",
+                "preferences": {
+                    "prio": 1580
+                },
+                "active": true,
+                "allow_signup": true,
+                "created_at": "2024-11-13T01:30:05.080Z",
+                "updated_at": "2024-11-13T01:30:05.080Z"
+            },
+            {
+                "id": 70,
+                "name": "permission-7",
+                "label": "label-60",
+                "description": "description-68",
+                "preferences": {
+                    "prio": 1660
+                },
+                "active": true,
+                "allow_signup": true,
+                "created_at": "2024-11-13T01:30:05.100Z",
+                "updated_at": "2024-11-13T01:30:05.100Z"
+            },
+            {
+                "id": 63,
+                "name": "name-115",
+                "label": "label-61",
+                "description": "description-69",
+                "preferences": {
+                    "prio": 1590
+                },
+                "active": true,
+                "allow_signup": true,
+                "created_at": "2024-11-13T01:30:05.083Z",
+                "updated_at": "2024-11-13T01:30:05.083Z"
+            },
+            {
+                "id": 65,
+                "name": "name-116",
+                "label": "label-62",
+                "description": "description-70",
+                "preferences": {
+                    "prio": 1610
+                },
+                "active": true,
+                "allow_signup": true,
+                "created_at": "2024-11-13T01:30:05.088Z",
+                "updated_at": "2024-11-13T01:30:05.088Z"
+            },
+            {
+                "id": 76,
+                "name": "name-117",
+                "label": "label-63",
+                "description": "description-71",
+                "preferences": {
+                    "prio": 1710,
+                    "setting": {
+                        "name": "name-118",
+                        "value": true
+                    }
+                },
+                "active": true,
+                "allow_signup": true,
+                "created_at": "2026-05-01T16:26:56.097Z",
+                "updated_at": "2026-05-01T16:26:56.700Z"
+            },
+            {
+                "id": 74,
+                "name": "name-119",
+                "label": "label-64",
+                "description": "description-72",
+                "preferences": {
+                    "prio": 1700,
+                    "required": [
+                        "permission-1"
+                    ]
+                },
+                "active": true,
+                "allow_signup": true,
+                "created_at": "2024-11-13T01:30:05.111Z",
+                "updated_at": "2024-11-13T01:30:05.111Z"
+            },
+            {
+                "id": 69,
+                "name": "name-120",
+                "label": "label-65",
+                "description": "description-73",
+                "preferences": {
+                    "prio": 1650
+                },
+                "active": true,
+                "allow_signup": true,
+                "created_at": "2024-11-13T01:30:05.098Z",
+                "updated_at": "2024-11-13T01:30:05.098Z"
+            },
+            {
+                "id": 64,
+                "name": "name-121",
+                "label": "label-66",
+                "description": "description-74",
+                "preferences": {
+                    "prio": 1600
+                },
+                "active": true,
+                "allow_signup": true,
+                "created_at": "2024-11-13T01:30:05.085Z",
+                "updated_at": "2024-11-13T01:30:05.085Z"
+            },
+            {
+                "id": 71,
+                "name": "name-122",
+                "label": "label-67",
+                "description": "description-75",
+                "preferences": {
+                    "prio": 1670
+                },
+                "active": true,
+                "allow_signup": true,
+                "created_at": "2024-11-13T01:30:05.103Z",
+                "updated_at": "2024-11-13T01:30:05.103Z"
+            },
+            {
+                "id": 72,
+                "name": "name-123",
+                "label": "label-68",
+                "description": "description-76",
+                "preferences": {
+                    "prio": 1680,
+                    "required": [
+                        "permission-1"
+                    ]
+                },
+                "active": true,
+                "allow_signup": true,
+                "created_at": "2024-11-13T01:30:05.106Z",
+                "updated_at": "2024-11-13T01:30:05.106Z"
+            },
+            {
+                "id": 66,
+                "name": "name-124",
+                "label": "label-69",
+                "description": "description-77",
+                "preferences": {
+                    "prio": 1620,
+                    "required": [
+                        "permission-1"
+                    ]
+                },
+                "active": true,
+                "allow_signup": true,
+                "created_at": "2024-11-13T01:30:05.090Z",
+                "updated_at": "2024-11-13T01:30:05.090Z"
+            },
+            {
+                "id": 73,
+                "name": "name-125",
+                "label": "label-31",
+                "description": "description-78",
+                "preferences": {
+                    "prio": 1690,
+                    "required": [
+                        "permission-1"
+                    ]
+                },
+                "active": true,
+                "allow_signup": true,
+                "created_at": "2024-11-13T01:30:05.108Z",
+                "updated_at": "2024-11-13T01:30:05.108Z"
+            },
+            {
+                "id": 67,
+                "name": "name-126",
+                "label": "display-40",
+                "description": "description-79",
+                "preferences": {
+                    "prio": 1630
+                },
+                "active": true,
+                "allow_signup": true,
+                "created_at": "2024-11-13T01:30:05.093Z",
+                "updated_at": "2024-11-13T01:30:05.093Z"
+            },
+            {
+                "id": 68,
+                "name": "name-127",
+                "label": "label-70",
+                "description": "description-80",
+                "preferences": {
+                    "prio": 1640
+                },
+                "active": true,
+                "allow_signup": true,
+                "created_at": "2024-11-13T01:30:05.095Z",
+                "updated_at": "2024-11-13T01:30:05.095Z"
+            }
+        ]
+    }
+}

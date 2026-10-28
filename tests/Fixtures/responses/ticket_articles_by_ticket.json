@@ -1,0 +1,40 @@
+{
+    "method": "GET",
+    "path": "/ticket_articles/by_ticket/1",
+    "status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "body": [
+        {
+            "id": 1,
+            "ticket_id": 1,
+            "type_id": 5,
+            "sender_id": 2,
+            "from": "from-1",
+            "to": null,
+            "cc": null,
+            "subject": null,
+            "reply_to": null,
+            "message_id": null,
+            "message_id_md5": null,
+            "in_reply_to": null,
+            "content_type": "text/plain",
+            "body": "Scrubbed body",
+            "internal": false,
+            "preferences": [],
+            "updated_by_id": 2,
+            "created_by_id": 2,
+            "origin_by_id": null,
+            "created_at": "2024-11-13T01:30:05.364Z",
+            "updated_at": "2024-11-13T01:30:05.364Z",
+            "detected_language": null,
+            "ai_stored_result_ids": [],
+            "attachments": [],
+            "created_by": "user3@example.test",
+            "updated_by": "user3@example.test",
+            "type": "phone",
+            "sender": "Customer",
+            "ai_stored_results": [],
+            "time_unit": null
+        }
+    ]
+}

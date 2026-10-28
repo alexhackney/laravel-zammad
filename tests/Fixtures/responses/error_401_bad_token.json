@@ -1,0 +1,10 @@
+{
+    "method": "GET",
+    "path": "/users/me",
+    "status": 401,
+    "content_type": "application/json; charset=utf-8",
+    "body": {
+        "error": "error-2",
+        "error_human": "error-2"
+    }
+}

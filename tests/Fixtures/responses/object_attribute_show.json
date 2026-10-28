@@ -1,0 +1,93 @@
+{
+    "method": "GET",
+    "path": "/object_manager_attributes/58",
+    "status": 200,
+    "content_type": "application/json; charset=utf-8",
+    "body": {
+        "id": 58,
+        "object_lookup_id": 3,
+        "name": "name-1",
+        "display": "display-1",
+        "data_type": "integer",
+        "data_option": {
+            "default": null,
+            "min": 0,
+            "max": 999999999,
+            "null": true,
+            "options": [],
+            "relation": ""
+        },
+        "data_option_new": [],
+        "editable": true,
+        "active": true,
+        "screens": {
+            "create": {
+                "ticket.customer": {
+                    "shown": true,
+                    "required": false
+                },
+                "ticket.agent": {
+                    "shown": true,
+                    "required": false
+                },
+                "admin.user": {
+                    "shown": true,
+                    "required": false
+                }
+            },
+            "view": {
+                "ticket.customer": {
+                    "shown": true
+                },
+                "ticket.agent": {
+                    "shown": true
+                },
+                "admin.user": {
+                    "shown": true
+                }
+            },
+            "edit": {
+                "ticket.agent": {
+                    "shown": true,
+                    "required": false
+                },
+                "admin.user": {
+                    "shown": true,
+                    "required": false
+                }
+            },
+            "signup": {
+                "ticket.customer": {
+                    "shown": false,
+                    "required": false
+                }
+            },
+            "invite_customer": {
+                "ticket.agent": {
+                    "shown": false,
+                    "required": false
+                },
+                "admin.user": {
+                    "shown": false,
+                    "required": false
+                }
+            },
+            "invite_agent": {
+                "admin.user": {
+                    "shown": false,
+                    "required": false
+                }
+            }
+        },
+        "to_create": true,
+        "to_migrate": true,
+        "to_delete": false,
+        "to_config": false,
+        "position": 0,
+        "created_by_id": 3,
+        "updated_by_id": 3,
+        "created_at": "2024-11-13T14:52:03.426Z",
+        "updated_at": "2024-11-13T14:52:03.426Z",
+        "internal": false
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "method": "POST",
+    "path": "/tickets",
+    "status": 422,
+    "content_type": "application/json; charset=utf-8",
+    "body": {
+        "error": "error-3",
+        "error_human": "error-3",
+        "unprocessable_entity": null
+    }
+}

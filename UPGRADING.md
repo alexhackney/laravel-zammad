@@ -27,7 +27,7 @@ This guide covers migrating a Laravel application (or package) from `codebar-ag/
 | Added timeout config keys | *(none)* | `zammad.connect_timeout` (`ZAMMAD_CONNECT_TIMEOUT`, default `10`), `zammad.request_timeout` (`ZAMMAD_REQUEST_TIMEOUT`, default `30`) |
 | PHP requirement | `^8.2` | `^8.3` |
 | Laravel requirement (`illuminate/contracts`, `illuminate/support`) | `^12.0` | `^12.0\|^13.0` |
-| Saloon requirement (`saloonphp/saloon`, `saloonphp/laravel-plugin`) | `^3.0` | `^4.0` |
+| Saloon requirement | `saloonphp/saloon ^3.0`, `saloonphp/laravel-plugin ^3.0\|^4.0` | `saloonphp/saloon ^4.0`, `saloonphp/laravel-plugin ^4.0\|^5.0` |
 | Added runtime dependency | *(none)* | `symfony/html-sanitizer: ^7.0\|^8.0` |
 | Removed runtime dependency | `saloonphp/cache-plugin` | *(removed; was unused)* |
 | Removed / replaced dev dependencies | `spatie/laravel-ray`, `friendsofphp/php-cs-fixer` | `spatie/laravel-ray` removed; `php-cs-fixer` replaced by `laravel/pint` (`^1.0`), `larastan/larastan` (`^3.10`), `pestphp/pest` (`^4.0`) |

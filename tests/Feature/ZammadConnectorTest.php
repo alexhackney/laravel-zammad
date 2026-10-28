@@ -1,6 +1,8 @@
 <?php
 
-use CodebarAg\Zammad\ZammadConnector;
+declare(strict_types=1);
+
+use AlexHackney\Zammad\ZammadConnector;
 
 it('will throw an error if a url is not provided', function () {
     config(['zammad.url' => '']);

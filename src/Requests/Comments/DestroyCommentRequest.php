@@ -1,6 +1,8 @@
 <?php
 
-namespace CodebarAg\Zammad\Requests\Comments;
+declare(strict_types=1);
+
+namespace AlexHackney\Zammad\Requests\Comments;
 
 use Saloon\Enums\Method;
 use Saloon\Http\Request;

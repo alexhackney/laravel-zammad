@@ -1,24 +1,97 @@
 name: release
 
+# Every push to main is tested (the same jobs as pull requests, through tests.yml) and, when it contains a
+# releasable conventional commit (feat, fix, perf, revert or a breaking change), released automatically:
+# the version is computed from the commit subjects since the last vX.Y.Z tag of this package (see
+# .github/scripts/release_plan.py and CONTRIBUTING.md), then the tag and the GitHub release (with generated
+# notes) are created. docs, style, test, build, ci, chore and refactor commits release nothing. The first
+# release is 1.0.0. Nothing is committed back to main.
+#
+# Only the current tip of main is released: an older run (a re-run, or a run that was queued behind a newer
+# push) does nothing, because the newest commit's run already covers its changes.
 on:
-  pull_request:
-    types:
-      - closed
-    branches:
-      - main
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Runs queue behind each other; a newer pending run replaces an older pending one, which is safe because the
+# tip check below makes every run release everything up to its own commit.
+concurrency:
+  group: release
+  cancel-in-progress: false
+
 jobs:
-  release:
-    name: Release
+  plan:
+    name: plan the release
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    outputs:
+      release: ${{ steps.plan.outputs.release }}
+      tag: ${{ steps.plan.outputs.tag }}
     steps:
-      - uses: actions/checkout@v6.0.2
+      - uses: actions/checkout@v5
         with:
-          fetch-depth: '0'
-      - name: Bump version and push tag
-        uses: anothrNick/github-tag-action@1.75.0
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: is this still the tip of main
+        id: tip
+        run: |
+          git fetch --no-tags origin main
+          if [ "$(git rev-parse FETCH_HEAD)" != "$GITHUB_SHA" ]; then
+            echo "::notice::$GITHUB_SHA is not the tip of main any more; a newer run covers it"
+            echo "current=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "current=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - id: plan
+        if: steps.tip.outputs.current == 'true'
+        run: python3 .github/scripts/release_plan.py --github-output "$GITHUB_OUTPUT"
         env:
-          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
-          WITH_V: true
-          RELEASE_BRANCHES: main
-          DEFAULT_BUMP: minor
+          GITHUB_REPOSITORY: ${{ github.repository }}
+
+  tests:
+    name: tests
+    if: github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/tests.yml
+
+  publish:
+    name: tag and publish ${{ needs.plan.outputs.tag }}
+    needs: [plan, tests]
+    if: needs.plan.outputs.release == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      # The notes are regenerated from the same commits instead of being passed between jobs; --expect-tag
+      # fails the run if the plan changed in between (for example a tag was created by hand).
+      - name: generate the release notes
+        run: python3 .github/scripts/release_plan.py --expect-tag "$TAG" --notes-file "$RUNNER_TEMP/notes.md"
+        env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          TAG: ${{ needs.plan.outputs.tag }}
+
+      - name: the tip of main must still be this commit
+        run: |
+          git fetch --no-tags origin main
+          test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
+
+      - name: create the tag and the GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ needs.plan.outputs.tag }}
+        run: |
+          if gh release view "$TAG" --json tagName >/dev/null 2>&1; then
+            echo "::notice::$TAG already has a release; nothing to do"
+            exit 0
+          fi
+          gh release create "$TAG" --target "$GITHUB_SHA" --title "$TAG" --notes-file "$RUNNER_TEMP/notes.md"

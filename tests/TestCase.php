@@ -1,8 +1,10 @@
 <?php
 
-namespace CodebarAg\Zammad\Tests;
+declare(strict_types=1);
 
-use CodebarAg\Zammad\ZammadServiceProvider;
+namespace AlexHackney\Zammad\Tests;
+
+use AlexHackney\Zammad\ZammadServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
 
@@ -13,7 +15,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'CodebarAg\\Zammad\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn (string $modelName) => 'AlexHackney\\Zammad\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
     }
 
@@ -26,6 +28,9 @@ class TestCase extends Orchestra
 
     public function getEnvironmentSetUp($app): void
     {
+        // Fake endpoint: tests never reach a real Zammad (see tests/Pest.php).
+        $app['config']->set('zammad.url', 'https://zammad.test');
+        $app['config']->set('zammad.token', 'test-token');
         $app['config']->set('database.default', 'sqlite');
         $app['config']->set('database.connections.sqlite', [
             'driver' => 'sqlite',

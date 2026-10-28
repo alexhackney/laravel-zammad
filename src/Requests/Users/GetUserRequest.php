@@ -1,8 +1,10 @@
 <?php
 
-namespace CodebarAg\Zammad\Requests\Users;
+declare(strict_types=1);
 
-use CodebarAg\Zammad\DTO\User;
+namespace AlexHackney\Zammad\Requests\Users;
+
+use AlexHackney\Zammad\Data\User;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 use Saloon\Http\Response;
@@ -20,7 +22,7 @@ class GetUserRequest extends Request
     {
         $endpoint = '/users/';
 
-        if ($this->id) {
+        if ($this->id !== null) {
             return $endpoint.$this->id;
         }
 

@@ -1,13 +1,15 @@
 <?php
 
-namespace CodebarAg\Zammad;
+declare(strict_types=1);
 
-use CodebarAg\Zammad\Resources\AttachmentResource;
-use CodebarAg\Zammad\Resources\CommentResource;
-use CodebarAg\Zammad\Resources\ObjectAttributeResource;
-use CodebarAg\Zammad\Resources\TicketResource;
-use CodebarAg\Zammad\Resources\UserAccessToken;
-use CodebarAg\Zammad\Resources\UserResource;
+namespace AlexHackney\Zammad;
+
+use AlexHackney\Zammad\Resources\AttachmentResource;
+use AlexHackney\Zammad\Resources\CommentResource;
+use AlexHackney\Zammad\Resources\ObjectAttributeResource;
+use AlexHackney\Zammad\Resources\TicketResource;
+use AlexHackney\Zammad\Resources\UserAccessToken;
+use AlexHackney\Zammad\Resources\UserResource;
 
 class Zammad
 {

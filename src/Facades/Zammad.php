@@ -1,29 +1,45 @@
 <?php
 
-namespace CodebarAg\Zammad\Facades;
+declare(strict_types=1);
 
-use CodebarAg\Zammad\Resources\AttachmentResource;
-use CodebarAg\Zammad\Resources\CommentResource;
-use CodebarAg\Zammad\Resources\ObjectAttributeResource;
-use CodebarAg\Zammad\Resources\TicketResource;
-use CodebarAg\Zammad\Resources\UserAccessToken;
-use CodebarAg\Zammad\Resources\UserResource;
+namespace AlexHackney\Zammad\Facades;
+
+use AlexHackney\Zammad\Resources\AttachmentResource;
+use AlexHackney\Zammad\Resources\CommentResource;
+use AlexHackney\Zammad\Resources\ObjectAttributeResource;
+use AlexHackney\Zammad\Resources\TicketResource;
+use AlexHackney\Zammad\Resources\UserAccessToken;
+use AlexHackney\Zammad\Resources\UserResource;
+use AlexHackney\Zammad\Testing\FakeZammad;
 use Illuminate\Support\Facades\Facade;
+use Saloon\Http\Faking\MockClient;
 
 /**
- * @see \CodebarAg\Zammad\Zammad
+ * @see \AlexHackney\Zammad\Zammad
  *
  * @method static UserResource user()
- * @method static UserAccessToken userAccesstoken()
+ * @method static UserAccessToken userAccessToken()
  * @method static TicketResource ticket()
  * @method static CommentResource comment()
  * @method static AttachmentResource attachment()
  * @method static ObjectAttributeResource object()
+ * @method static MockClient fake(array<int|string, mixed> $mocks = [])
  */
 class Zammad extends Facade
 {
+    /**
+     * Install Saloon's global mock client for Zammad requests.
+     * Each call replaces the previous global client, mocks and request history.
+     *
+     * @param  array<int|string, mixed>  $mocks
+     */
+    public static function fake(array $mocks = []): MockClient
+    {
+        return FakeZammad::fake($mocks);
+    }
+
     protected static function getFacadeAccessor(): string
     {
-        return \CodebarAg\Zammad\Zammad::class;
+        return \AlexHackney\Zammad\Zammad::class;
     }
 }

@@ -1,8 +1,10 @@
 <?php
 
-namespace CodebarAg\Zammad\Requests\Comments;
+declare(strict_types=1);
 
-use CodebarAg\Zammad\DTO\Comment;
+namespace AlexHackney\Zammad\Requests\Comments;
+
+use AlexHackney\Zammad\Data\Comment;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -15,6 +17,7 @@ class CreateCommentRequest extends Request implements HasBody
 
     protected Method $method = Method::POST;
 
+    /** @param array<string, mixed> $payload */
     public function __construct(
         protected array $payload
     ) {}
@@ -24,6 +27,7 @@ class CreateCommentRequest extends Request implements HasBody
         return '/ticket_articles';
     }
 
+    /** @return array<string, mixed> */
     protected function defaultBody(): array
     {
         return $this->payload;

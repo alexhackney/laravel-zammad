@@ -1,21 +1,40 @@
 <?php
 
-namespace CodebarAg\Zammad\DTO;
+declare(strict_types=1);
+
+namespace AlexHackney\Zammad\Data;
 
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
+/**
+ * @phpstan-import-type CommentData from Comment
+ *
+ * @phpstan-type TicketData array{
+ *     id: scalar, number: scalar, customer_id: scalar, group_id: scalar, state_id: scalar,
+ *     title: scalar, article_count?: scalar|null, updated_at: string|null, created_at: string|null,
+ *     comments?: array<int, Comment|CommentData>|\Traversable<int, Comment|CommentData>|null,
+ *     ...<string, mixed>
+ * }
+ */
+#[\AllowDynamicProperties]
 class Ticket
 {
+    use NormalizesJsonScalars;
+
+    /**
+     * @param  array<string, mixed>  $data
+     */
     public static function fromJson(array $data, bool $expanded = false): self
     {
-        $properties = collect(config('zammad.ticket'))
-            ->filter(fn (string $_, string $key) => Arr::exists($data, $key))
+        $properties = (new Collection(config('zammad.ticket')))
+            ->filter(fn (string $_, string $key) => Arr::exists($data, $key) && ! property_exists(self::class, $key))
             ->map(fn (string $type, string $key) => [
                 'name' => $key,
                 'value' => match ($type) {
-                    'bool','boolean' => (bool) $data[$key],
+                    'string' => (string) $data[$key],
+                    'bool','boolean' => filter_var($data[$key], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) ?? (bool) $data[$key],
                     'int','integer' => (int) $data[$key],
                     'float','double' => (float) $data[$key],
                     'date','datetime' => Carbon::parse($data[$key]),
@@ -23,24 +42,41 @@ class Ticket
                 },
             ])
             ->values()
-            ->toArray();
+            ->all();
+
+        $comments = $data['comments'] ?? [];
+
+        if (! is_array($comments) && ! $comments instanceof \Traversable) {
+            throw new \TypeError('Expected comments to be an array, Traversable, or null.');
+        }
+
+        if (! $comments instanceof Collection) {
+            $comments = new Collection($comments);
+        }
+
+        $comments->transform(fn ($comment) => $comment instanceof Comment ? $comment : Comment::fromJson($comment));
 
         return new self(
-            id: $data['id'],
-            number: $data['number'],
-            customer_id: $data['customer_id'],
-            group_id: $data['group_id'],
-            state_id: $data['state_id'],
-            subject: $data['title'],
-            comments_count: Arr::get($data, 'article_count', 0) ?? 0,
+            id: self::jsonInt($data['id']),
+            number: self::jsonInt($data['number']),
+            customer_id: self::jsonInt($data['customer_id']),
+            group_id: self::jsonInt($data['group_id']),
+            state_id: self::jsonInt($data['state_id']),
+            subject: self::jsonString($data['title']),
+            comments_count: self::jsonInt($data['article_count'] ?? 0),
             updated_at: Carbon::parse($data['updated_at']),
             created_at: Carbon::parse($data['created_at']),
-            comments: $data['comments'] ?? collect([]),
+            comments: $comments,
             properties: $properties,
             expanded: $expanded ? $data : null,
         );
     }
 
+    /**
+     * @param  Collection<int, Comment>  $comments
+     * @param  array<int, array{name: string, value: mixed}>  $properties
+     * @param  array<string, mixed>|null  $expanded
+     */
     public function __construct(
         public int $id,
         public int $number,
@@ -55,10 +91,10 @@ class Ticket
         array $properties,
         public ?array $expanded = null,
     ) {
-        $this->comments = collect([]);
-
         foreach ($properties as ['name' => $name, 'value' => $value]) {
-            $this->$name = $value;
+            if (! property_exists(self::class, $name)) {
+                $this->$name = $value;
+            }
         }
     }
 
@@ -96,6 +132,11 @@ class Ticket
         return in_array($this->state_id, config('zammad.ticket_states.inactive', []));
     }
 
+    /**
+     * @param  Collection<int, Comment>|null  $comments
+     * @param  array<int, array{name: string, value: mixed}>|null  $properties
+     * @param  array<string, mixed>|null  $expanded
+     */
     public static function fake(
         ?int $id = null,
         ?int $number = null,

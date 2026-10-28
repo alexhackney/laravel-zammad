@@ -1,11 +1,13 @@
 <?php
 
-namespace CodebarAg\Zammad\Resources;
+declare(strict_types=1);
 
-use CodebarAg\Zammad\Classes\RequestClass;
-use CodebarAg\Zammad\Requests\AccessTokens\AllAccessTokensRequest;
-use CodebarAg\Zammad\Requests\AccessTokens\CreateAccessTokenRequest;
-use CodebarAg\Zammad\Requests\AccessTokens\DestroyAccessTokenRequest;
+namespace AlexHackney\Zammad\Resources;
+
+use AlexHackney\Zammad\Classes\RequestClass;
+use AlexHackney\Zammad\Requests\AccessTokens\AllAccessTokensRequest;
+use AlexHackney\Zammad\Requests\AccessTokens\CreateAccessTokenRequest;
+use AlexHackney\Zammad\Requests\AccessTokens\DestroyAccessTokenRequest;
 use Saloon\Exceptions\Request\RequestException;
 
 class UserAccessToken extends RequestClass
@@ -15,7 +17,8 @@ class UserAccessToken extends RequestClass
      * @throws RequestException
      * @throws \JsonException
      */
-    public function list()
+    /** @return array<string, mixed> */
+    public function list(): array
     {
         $response = self::request(new AllAccessTokensRequest);
 
@@ -27,7 +30,10 @@ class UserAccessToken extends RequestClass
      * @throws RequestException
      * @throws \JsonException
      */
-    public function create(array $data)
+    /** @param array<string, mixed> $data
+     * @return array<string, mixed>
+     */
+    public function create(array $data): array
     {
         $response = self::request(new CreateAccessTokenRequest($data));
 
@@ -39,8 +45,15 @@ class UserAccessToken extends RequestClass
      * @throws RequestException
      * @throws \JsonException
      */
-    public function delete($id)
+    /** @return array<string, mixed> */
+    public function delete(int|string $id): array
     {
+        $id = filter_var($id, FILTER_VALIDATE_INT);
+
+        if ($id === false || $id < 1) {
+            throw new \InvalidArgumentException('The access token id must be a positive integer.');
+        }
+
         $response = self::deleteRequest(new DestroyAccessTokenRequest($id));
 
         return $response->json();

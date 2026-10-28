@@ -1,6 +1,8 @@
 <?php
 
-namespace CodebarAg\Zammad\Requests\Tickets;
+declare(strict_types=1);
+
+namespace AlexHackney\Zammad\Requests\Tickets;
 
 use Saloon\Enums\Method;
 use Saloon\Http\Request;

@@ -1,9 +1,22 @@
 <?php
 
-namespace CodebarAg\Zammad\DTO;
+declare(strict_types=1);
 
+namespace AlexHackney\Zammad\Data;
+
+/**
+ * @phpstan-type AttachmentData array{
+ *     id: scalar, size: scalar, filename: scalar,
+ *     preferences: array<string, scalar>
+ * }
+ */
 class Attachment
 {
+    use NormalizesJsonScalars;
+
+    /**
+     * @param  array<string, mixed>  $data
+     */
     public static function fromJson(
         array $data,
         int $ticketId,
@@ -12,12 +25,12 @@ class Attachment
         $type = $data['preferences'];
 
         return new self(
-            id: $data['id'],
+            id: self::jsonInt($data['id']),
             ticket_id: $ticketId,
             comment_id: $commentId,
-            size: $data['size'],
-            name: $data['filename'],
-            type: $type['Content-Type'] ?? $type['Mime-Type'],
+            size: self::jsonInt($data['size']),
+            name: self::jsonString($data['filename']),
+            type: self::jsonString($type['Content-Type'] ?? $type['Mime-Type']),
         );
     }
 
@@ -32,9 +45,21 @@ class Attachment
 
     public function url(): string
     {
+        $url = config('zammad.url');
+
+        if (! $url) {
+            throw new \Exception('No url provided.', 500);
+        }
+
+        $parts = is_string($url) ? parse_url($url) : false;
+
+        if ($parts === false || ! in_array(strtolower($parts['scheme'] ?? ''), ['http', 'https'], true) || ($parts['host'] ?? '') === '') {
+            throw new \InvalidArgumentException('The Zammad url must be an absolute HTTP or HTTPS URL.');
+        }
+
         return sprintf(
             '%s/api/v1/ticket_attachment/%s/%s/%s',
-            config('zammad.url'),
+            rtrim($url, '/'),
             $this->ticket_id,
             $this->comment_id,
             $this->id,

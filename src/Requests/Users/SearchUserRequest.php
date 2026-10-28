@@ -1,6 +1,8 @@
 <?php
 
-namespace CodebarAg\Zammad\Requests\Users;
+declare(strict_types=1);
+
+namespace AlexHackney\Zammad\Requests\Users;
 
 use Saloon\Enums\Method;
 use Saloon\Http\Request;

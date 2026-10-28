@@ -1,13 +1,15 @@
 <?php
 
-namespace CodebarAg\Zammad\Resources;
+declare(strict_types=1);
 
-use CodebarAg\Zammad\Classes\RequestClass;
-use CodebarAg\Zammad\DTO\Comment;
-use CodebarAg\Zammad\Requests\Comments\CreateCommentRequest;
-use CodebarAg\Zammad\Requests\Comments\DestroyCommentRequest;
-use CodebarAg\Zammad\Requests\Comments\GetCommentByTicketRequest;
-use CodebarAg\Zammad\Requests\Comments\GetCommentRequest;
+namespace AlexHackney\Zammad\Resources;
+
+use AlexHackney\Zammad\Classes\RequestClass;
+use AlexHackney\Zammad\Data\Comment;
+use AlexHackney\Zammad\Requests\Comments\CreateCommentRequest;
+use AlexHackney\Zammad\Requests\Comments\DestroyCommentRequest;
+use AlexHackney\Zammad\Requests\Comments\GetCommentByTicketRequest;
+use AlexHackney\Zammad\Requests\Comments\GetCommentRequest;
 use Illuminate\Support\Collection;
 use Saloon\Exceptions\Request\RequestException;
 
@@ -26,17 +28,23 @@ class CommentResource extends RequestClass
     }
 
     /**
+     * @return Collection<int, Comment>
+     *
      * @throws \Throwable
      * @throws RequestException
      * @throws \JsonException
      */
-    public function showByTicket(int $id): Collection
+    public function showByTicket(int $id, bool $includeInternal = false): Collection
     {
         $response = self::request(new GetCommentByTicketRequest($id));
 
-        $comments = $response->json();
+        $collection = $response->collect();
 
-        return collect($comments)->map(fn (array $comment) => Comment::fromJson($comment));
+        if (! $includeInternal) {
+            $collection = $collection->reject(fn (array $comment) => $comment['internal'])->values();
+        }
+
+        return $collection->map(fn (array $comment) => Comment::fromJson($comment));
     }
 
     /**
@@ -44,6 +52,7 @@ class CommentResource extends RequestClass
      * @throws RequestException
      * @throws \JsonException
      */
+    /** @param array<string, mixed> $data */
     public function create(array $data): Comment
     {
         $response = self::request(new CreateCommentRequest($data));

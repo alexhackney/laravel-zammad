@@ -1,19 +1,26 @@
 <?php
 
-namespace CodebarAg\Zammad\DTO;
+declare(strict_types=1);
+
+namespace AlexHackney\Zammad\Data;
 
 use Carbon\Carbon;
 
 class User
 {
+    use NormalizesJsonScalars;
+
+    /**
+     * @param  array<string, mixed>  $data
+     */
     public static function fromJson(array $data, bool $expanded = false): self
     {
         return new self(
-            id: $data['id'],
-            first_name: $data['firstname'],
-            last_name: $data['lastname'],
-            login: $data['login'],
-            email: $data['email'],
+            id: self::jsonInt($data['id']),
+            first_name: self::jsonString($data['firstname']),
+            last_name: self::jsonString($data['lastname']),
+            login: self::jsonString($data['login']),
+            email: self::jsonString($data['email']),
             last_login_at: Carbon::parse($data['last_login']),
             updated_at: Carbon::parse($data['updated_at']),
             created_at: Carbon::parse($data['created_at']),
@@ -21,6 +28,9 @@ class User
         );
     }
 
+    /**
+     * @param  array<string, mixed>|null  $expanded
+     */
     public function __construct(
         public int $id,
         public string $first_name,
@@ -33,6 +43,9 @@ class User
         public ?array $expanded = null,
     ) {}
 
+    /**
+     * @param  array<string, mixed>|null  $expanded
+     */
     public static function fake(
         ?int $id = null,
         ?string $first_name = null,
@@ -48,8 +61,8 @@ class User
             id: $id ?? random_int(1, 1000),
             first_name: $first_name ?? 'Max',
             last_name: $last_name ?? 'Mustermann',
-            login: $login ?? 'max.mustermann@codebar.ch',
-            email: $email ?? 'max.mustermann@codebar.ch',
+            login: $login ?? 'max.mustermann@example.test',
+            email: $email ?? 'max.mustermann@example.test',
             last_login_at: $last_login_at ?? now(),
             updated_at: $updated_at ?? now(),
             created_at: $created_at ?? now()->subDay(),

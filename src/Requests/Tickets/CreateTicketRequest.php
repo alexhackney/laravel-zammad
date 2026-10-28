@@ -1,8 +1,10 @@
 <?php
 
-namespace CodebarAg\Zammad\Requests\Tickets;
+declare(strict_types=1);
 
-use CodebarAg\Zammad\DTO\Ticket;
+namespace AlexHackney\Zammad\Requests\Tickets;
+
+use AlexHackney\Zammad\Data\Ticket;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -15,6 +17,7 @@ class CreateTicketRequest extends Request implements HasBody
 
     protected Method $method = Method::POST;
 
+    /** @param array<string, mixed> $payload */
     public function __construct(
         protected array $payload,
         public bool $expand = false
@@ -32,6 +35,7 @@ class CreateTicketRequest extends Request implements HasBody
         ];
     }
 
+    /** @return array<string, mixed> */
     protected function defaultBody(): array
     {
         return $this->payload;
@@ -39,6 +43,6 @@ class CreateTicketRequest extends Request implements HasBody
 
     public function createDtoFromResponse(Response $response): Ticket
     {
-        return Ticket::fromJson($response->json());
+        return Ticket::fromJson($response->json(), $this->expand);
     }
 }

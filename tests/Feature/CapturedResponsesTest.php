@@ -232,3 +232,71 @@ it('does not ignore a real 422 error body on delete when the message differs', f
 
     (new Zammad)->ticket()->delete(1);
 })->throws(RequestException::class);
+
+it('shows a real ticket whose articles carry attachments', function () {
+    MockClient::global([
+        GetTicketRequest::class => replay(GetTicketRequest::class, 'ticket_show_with_attachments'),
+        GetCommentByTicketRequest::class => replay(GetCommentByTicketRequest::class, 'ticket_articles_with_attachments'),
+    ]);
+    $ticketId = (int) capture('ticket_show_with_attachments')['body']['id'];
+
+    $ticket = (new Zammad)->ticket()->showWithComments($ticketId);
+
+    expect($ticket->comments)->toHaveCount(5);
+    expect($ticket->comments->every(fn (Comment $c): bool => $c->internal === false))->toBeTrue();
+
+    $withFiles = $ticket->comments->first(fn (Comment $c): bool => $c->attachments->isNotEmpty());
+    expect($withFiles)->toBeInstanceOf(Comment::class);
+    expect($withFiles->attachments)->toHaveCount(2);
+
+    foreach ($withFiles->attachments as $attachment) {
+        expect($attachment->size)->toBeInt()
+            ->and($attachment->name)->toBeString()->not->toBe('')
+            ->and($attachment->type)->toBeString()->not->toBe('')
+            ->and($attachment->ticket_id)->toBe($ticketId)
+            ->and($attachment->comment_id)->toBe($withFiles->id);
+    }
+});
+
+it('reads the attachment type from Mime-Type when the real preferences have no Content-Type', function () {
+    $articles = capture('ticket_articles_with_attachments')['body'];
+    $withFiles = array_values(array_filter($articles, fn (array $a): bool => ($a['attachments'] ?? []) !== []))[0];
+    $first = $withFiles['attachments'][0];
+
+    expect($first['preferences'])->not->toHaveKey('Content-Type')->toHaveKey('Mime-Type');
+
+    $comment = Comment::fromJson($withFiles);
+
+    expect($comment->attachments[0]->type)->toBe($first['preferences']['Mime-Type']);
+});
+
+it('builds the download url of a real attachment', function () {
+    $articles = capture('ticket_articles_with_attachments')['body'];
+    $withFiles = array_values(array_filter($articles, fn (array $a): bool => ($a['attachments'] ?? []) !== []))[0];
+    $comment = Comment::fromJson($withFiles);
+    $attachment = $comment->attachments[0];
+
+    expect($attachment->url())->toBe(sprintf(
+        'https://zammad.test/api/v1/ticket_attachment/%d/%d/%d',
+        $comment->ticket_id,
+        $comment->id,
+        $attachment->id,
+    ));
+});
+
+it('keeps the raw payload of a real expanded ticket with many relations', function () {
+    MockClient::global([GetTicketRequest::class => replay(GetTicketRequest::class, 'ticket_show_expanded_with_attachments')]);
+
+    $ticket = (new Zammad)->ticket()->expand()->show(1789);
+
+    expect($ticket->expanded)->toBeArray()->toHaveKeys(['article_ids', 'group', 'state']);
+});
+
+it('shows a real customer without an organization', function () {
+    MockClient::global([GetUserRequest::class => replay(GetUserRequest::class, 'user_show_customer')]);
+
+    $user = (new Zammad)->user()->show(1304);
+
+    expect($user)->toBeInstanceOf(User::class);
+    expect(capture('user_show_customer')['body']['organization_id'])->toBeNull();
+});

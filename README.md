@@ -1,14 +1,41 @@
 # Laravel Zammad
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/alexhackney/laravel-zammad.svg?style=flat-square)](https://packagist.org/packages/alexhackney/laravel-zammad)
-[![Tests](https://img.shields.io/github/actions/workflow/status/alexhackney/laravel-zammad/tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/alexhackney/laravel-zammad/actions/workflows/tests.yml)
+[![Total Downloads](https://img.shields.io/packagist/dt/alexhackney/laravel-zammad.svg?style=flat-square)](https://packagist.org/packages/alexhackney/laravel-zammad/stats)
+[![PHP Version](https://img.shields.io/packagist/dependency-v/alexhackney/laravel-zammad/php?style=flat-square)](https://packagist.org/packages/alexhackney/laravel-zammad)
+[![Tests](https://img.shields.io/github/actions/workflow/status/alexhackney/laravel-zammad/release.yml?branch=main&label=tests&style=flat-square)](https://github.com/alexhackney/laravel-zammad/actions/workflows/release.yml)
+[![PHPStan level 8](https://img.shields.io/badge/PHPStan-level%208-brightgreen.svg?style=flat-square)](phpstan.neon.dist)
 [![License](https://img.shields.io/packagist/l/alexhackney/laravel-zammad.svg?style=flat-square)](LICENSE.md)
 
-A Laravel client for the [Zammad](https://zammad.org) helpdesk REST API, built on
-[Saloon](https://docs.saloon.dev) 4. It covers users, tickets, comments (ticket articles), attachments,
-object attributes and user access tokens, and returns typed data objects (DTOs) instead of raw arrays.
+**A Laravel client for the [Zammad](https://zammad.org) helpdesk and ticketing REST API.** Create and search
+tickets, read conversations, manage users, download attachments and mint access tokens from your Laravel app,
+with typed data objects instead of raw arrays. Built on [Saloon](https://docs.saloon.dev) 4, tested on PHP 8.3
+to 8.5 with Laravel 12 and 13.
 
-This is a maintained fork of `codebar-ag/laravel-zammad`.
+```php
+use Zammad;
+
+$ticket = Zammad::ticket()->create([
+    'title' => 'Printer is on fire',
+    'group' => 'Users',
+    'customer' => 'ada@example.com',
+    'article' => ['subject' => 'Printer is on fire', 'body' => 'Please help.', 'type' => 'note', 'internal' => false],
+]);
+
+$ticket = Zammad::ticket()->showWithComments($ticket->id);   // typed Ticket with its public comments
+$user = Zammad::user()->searchOrCreateByEmail('ada@example.com');
+```
+
+## Features
+
+- Tickets, users, comments (ticket articles), attachments, object attributes and user access tokens.
+- Typed DTOs (`AlexHackney\Zammad\Data`) with Carbon dates, plus `expand`, limit and pagination helpers.
+- Safe by default: retries only when it cannot duplicate a write, redirects are errors, internal notes are
+  excluded unless you ask, and `Comment::$body_filtered` is HTML-sanitised.
+- `Zammad::fake()` test double and `php artisan zammad:ping` connection check.
+- Laravel 12 and 13, PHP 8.3 to 8.5, PHPStan level 8, strict types, no baseline.
+
+This is a maintained fork of `codebar-ag/laravel-zammad`, which is no longer developed.
 
 ## Coming from codebar-ag/laravel-zammad?
 

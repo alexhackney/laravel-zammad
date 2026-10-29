@@ -77,13 +77,28 @@ class ZammadConnector extends Connector
 
             $previous = $exception->getPrevious();
 
-            return $previous instanceof ConnectException
-                && in_array($previous->getHandlerContext()['errno'] ?? null, [6, 7], true);
+            return $previous instanceof ConnectException && $this->neverConnected($previous);
         }
 
         $status = $exception->getResponse()->status();
 
         return $idempotent && ($status === 429 || ($status >= 500 && $status < 600));
+    }
+
+    /**
+     * True when the request cannot have reached the server, which makes replaying a non-idempotent request safe.
+     *
+     * Guzzle 7 reports the cURL error number in the handler context (6 = could not resolve, 7 = could not
+     * connect). Guzzle 8 has no handler context: there ConnectException (and ConnectTimeoutException) is only
+     * thrown while the connection is being established, whereas read and response timeouts use other classes.
+     */
+    private function neverConnected(ConnectException $exception): bool
+    {
+        if (! method_exists($exception, 'getHandlerContext')) {
+            return true;
+        }
+
+        return in_array($exception->getHandlerContext()['errno'] ?? null, [6, 7], true);
     }
 
     protected function defaultConfig(): array

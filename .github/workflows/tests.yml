@@ -51,7 +51,7 @@ jobs:
         run: composer analyse -- --no-progress
 
   tests:
-    name: PHP ${{ matrix.php }} / Laravel ${{ matrix.laravel }}
+    name: PHP ${{ matrix.php }} / Laravel ${{ matrix.laravel }}${{ matrix.guzzle && format(' / Guzzle {0}', matrix.guzzle) || '' }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -76,6 +76,16 @@ jobs:
           - php: '8.5'
             laravel: '13.*'
             testbench: '11.*'
+          # Laravel 12 pins Guzzle 7. Laravel 13 allows 7 and 8, and resolves to 8 on its own, so pin both
+          # explicitly to keep the two Guzzle majors covered.
+          - php: '8.4'
+            laravel: '13.*'
+            testbench: '11.*'
+            guzzle: '7.*'
+          - php: '8.4'
+            laravel: '13.*'
+            testbench: '11.*'
+            guzzle: '8.*'
 
     steps:
       - uses: actions/checkout@v5
@@ -94,6 +104,9 @@ jobs:
           composer require --dev --no-update --no-interaction \
             "laravel/framework:${{ matrix.laravel }}" \
             "orchestra/testbench:${{ matrix.testbench }}"
+          if [ -n "${{ matrix.guzzle }}" ]; then
+            composer require --no-update --no-interaction "guzzlehttp/guzzle:${{ matrix.guzzle }}"
+          fi
           composer update --no-interaction --prefer-dist
 
       - name: Run tests

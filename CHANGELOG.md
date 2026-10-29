@@ -66,6 +66,7 @@ Migrating from `codebar-ag/laravel-zammad`? See [UPGRADING.md](UPGRADING.md).
 - Environment variables for the comment filters: `ZAMMAD_FILTER_IMAGES`, `ZAMMAD_FILTER_TABLES`,
   `ZAMMAD_FILTER_SIGNATURE_MARKER`, `ZAMMAD_FILTER_SIGNATURE_MARKER_VALUE`, `ZAMMAD_FILTER_DATA_SIGNATURE`,
   `ZAMMAD_FILTER_DATA_SIGNATURE_VALUE` (defaults unchanged).
+- Guzzle 7 and 8 are both supported (`guzzlehttp/guzzle ^7.8|^8.3`); Laravel 12 still pins Guzzle 7.
 - Laravel Pint, PHPStan level 8 (Larastan), Pest 4, CI for PHP 8.3 to 8.5 on Laravel 12 and 13.
 
 ### Removed

@@ -3,3 +3,11 @@ parameters:
     paths:
         - src
     tmpDir: build/phpstan
+    ignoreErrors:
+        # ZammadConnector::neverConnected() supports Guzzle 7 (ConnectException has getHandlerContext()) and
+        # Guzzle 8 (it does not). PHPStan only sees the installed major, so on Guzzle 7 the method_exists() guard
+        # is "always true". Scoped to that file and message, and not reported when it does not match (Guzzle 8).
+        -
+            message: '#Call to function method_exists\(\) with GuzzleHttp\\Exception\\ConnectException and .getHandlerContext. will always evaluate to true#'
+            path: src/ZammadConnector.php
+            reportUnmatched: false

@@ -6,6 +6,8 @@ use AlexHackney\Zammad\Classes\RequestClass;
 use AlexHackney\Zammad\Events\ZammadResponseLog;
 use AlexHackney\Zammad\ZammadConnector;
 use GuzzleHttp\Exception\ConnectException;
+use GuzzleHttp\Exception\NetworkException;
+use GuzzleHttp\Exception\NetworkTimeoutException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\Promise\RejectedPromise;
@@ -13,6 +15,7 @@ use GuzzleHttp\Psr7\Request as PsrRequest;
 use GuzzleHttp\Psr7\Response as PsrResponse;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Log;
+use Psr\Http\Message\RequestInterface;
 use Saloon\Config;
 use Saloon\Enums\Method;
 use Saloon\Exceptions\Request\FatalRequestException;
@@ -22,6 +25,7 @@ use Saloon\Http\Faking\MockResponse;
 use Saloon\Http\PendingRequest;
 use Saloon\Http\Request;
 use Saloon\Http\Senders\GuzzleSender;
+use Throwable;
 
 class TransportTestRequest extends Request
 {
@@ -143,10 +147,32 @@ it('does not retry other client errors', function (int $status) {
     $mock->assertSentCount(1);
 })->with([400, 401, 404, 422]);
 
-it('retries connection failures only when safe for the method', function (Method $method, ?int $errno, bool $retry) {
+/**
+ * Builds the Guzzle exception for a failed connection attempt on whichever Guzzle major is installed.
+ * $kind: resolve (could not resolve host), connect (could not connect), timeout (ambiguous: the request may have
+ * been sent), unknown (some other transport failure).
+ */
+function guzzleTransportException(string $kind, RequestInterface $request): Throwable
+{
+    if (method_exists(ConnectException::class, 'getHandlerContext')) {
+        // Guzzle 7: everything is a ConnectException and the cURL errno tells them apart.
+        $errno = ['resolve' => 6, 'connect' => 7, 'timeout' => 28, 'unknown' => null][$kind];
+
+        return new ConnectException('Connection failed', $request, null, $errno === null ? [] : ['errno' => $errno]);
+    }
+
+    // Guzzle 8: typed exceptions.
+    return match ($kind) {
+        'resolve', 'connect' => new ConnectException('Connection failed', $request),
+        'timeout' => new NetworkTimeoutException('Timed out', $request),
+        default => new NetworkException('Transport failed', $request),
+    };
+}
+
+it('retries connection failures only when safe for the method', function (Method $method, string $kind, bool $retry) {
     $attempts = 0;
     MockClient::global([
-        TransportTestRequest::class => function (PendingRequest $pendingRequest) use (&$attempts, $errno) {
+        TransportTestRequest::class => function (PendingRequest $pendingRequest) use (&$attempts, $kind) {
             $attempts++;
 
             if ($attempts > 1) {
@@ -154,7 +180,7 @@ it('retries connection failures only when safe for the method', function (Method
             }
 
             return MockResponse::make()->throw(fn () => new FatalRequestException(
-                new ConnectException('Connection failed', new PsrRequest('GET', 'https://zammad.test'), null, $errno === null ? [] : ['errno' => $errno]),
+                guzzleTransportException($kind, new PsrRequest('GET', 'https://zammad.test')),
                 $pendingRequest,
             ));
         },
@@ -170,13 +196,13 @@ it('retries connection failures only when safe for the method', function (Method
 
     expect($attempts)->toBe($retry ? 2 : 1);
 })->with([
-    'GET timeout' => [Method::GET, 28, true],
-    'GET unknown connection failure' => [Method::GET, null, true],
-    'POST cannot resolve' => [Method::POST, 6, true],
-    'POST cannot connect' => [Method::POST, 7, true],
-    'POST read timeout' => [Method::POST, 28, false],
-    'POST unknown connection failure' => [Method::POST, null, false],
-    'PATCH cannot connect' => [Method::PATCH, 7, true],
+    'GET timeout' => [Method::GET, 'timeout', true],
+    'GET unknown connection failure' => [Method::GET, 'unknown', true],
+    'POST cannot resolve' => [Method::POST, 'resolve', true],
+    'POST cannot connect' => [Method::POST, 'connect', true],
+    'POST read timeout' => [Method::POST, 'timeout', false],
+    'POST unknown connection failure' => [Method::POST, 'unknown', false],
+    'PATCH cannot connect' => [Method::PATCH, 'connect', true],
 ]);
 
 it('does not retry a non-Guzzle fatal failure for POST', function () {
@@ -304,9 +330,7 @@ it('keeps the missing URL and token exception messages', function () {
 it('never replays a POST after a redirect target connection failure', function () {
     withGuzzleTransport([
         new PsrResponse(303, ['Location' => 'https://unavailable.test/created']),
-        fn ($request) => new RejectedPromise(new ConnectException(
-            'Could not connect to redirect target', $request, null, ['errno' => 7],
-        )),
+        fn ($request) => new RejectedPromise(guzzleTransportException('connect', $request)),
         new PsrResponse(201),
     ], function (array &$history) {
         $exception = null;
